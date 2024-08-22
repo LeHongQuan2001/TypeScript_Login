@@ -1,14 +1,23 @@
 import User from '../models/userModel';
+import Role from '../models/roleModel';
 import bcrypt from 'bcrypt';
 import generateToken from '../utils/generateToken';
+import { sign } from '../utils/jwtUtils';
 
-export const loginUser = async (email: string, password: string) => {
+interface AuthenticatedUser {
+    id: number;
+    email: string;
+    access_token: string;
+}
+
+export const loginUser = async (email: string, password: string): Promise<AuthenticatedUser> => {
     const user = await User.findOne({ where: { email } });
     if (user && await bcrypt.compare(password, user.password)) {
+        const role = await Role.findOne({ where: { id: user.role_id } });
         return {
             id: user.id,
             email: user.email,
-            token: generateToken(user.id.toString()),
+            access_token: sign(user.id.toString(), role?.name),
         };
     }
     throw new Error('Invalid credentials');

@@ -14,15 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUser = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
+const roleModel_1 = __importDefault(require("../models/roleModel"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const generateToken_1 = __importDefault(require("../utils/generateToken"));
+const jwtUtils_1 = require("../utils/jwtUtils");
 const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield userModel_1.default.findOne({ where: { email } });
     if (user && (yield bcrypt_1.default.compare(password, user.password))) {
+        const role = yield roleModel_1.default.findOne({ where: { id: user.role_id } });
         return {
             id: user.id,
             email: user.email,
-            token: (0, generateToken_1.default)(user.id.toString()),
+            access_token: (0, jwtUtils_1.sign)(user.id.toString(), role === null || role === void 0 ? void 0 : role.name),
         };
     }
     throw new Error('Invalid credentials');

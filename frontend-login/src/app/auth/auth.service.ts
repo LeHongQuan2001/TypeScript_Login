@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 interface AuthResponse {
-  token: string;
+  data: any;
+  access_token: string;
   id: number;
 }
 
@@ -17,7 +18,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
-    console.log('email', email, 'password', password);
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         tap(response => {
@@ -30,12 +30,12 @@ export class AuthService {
       );
   };
 
-  private storeTokens(tokens: AuthResponse) {
-    if (tokens && tokens.token && tokens.id) {
-      localStorage.setItem('access_token', tokens.token);
-      localStorage.setItem('user_id', tokens.id.toString());
+  private storeTokens(res: AuthResponse) {
+    if (res && res.data.access_token && res.data.id) {
+      localStorage.setItem('access_token', res.data.access_token);
+      localStorage.setItem('user_id', res.data.id.toString());
     } else {
-      console.error('Tokens received from API are invalid:', tokens);
+      console.error('Tokens received from API are invalid:', res);
     }
   };
 

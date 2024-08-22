@@ -11,19 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = void 0;
 const authServices_1 = require("../services/authServices");
+const responseUtils_1 = require("../utils/responseUtils");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
-        console.log('email', email, 'password', password);
         const user = yield (0, authServices_1.loginUser)(email, password);
-        res.json(user);
+        (0, responseUtils_1.ok)(res, user);
     }
     catch (error) {
         if (error instanceof Error) {
-            res.status(401).json({ message: error.message });
+            (0, responseUtils_1.unauthorized)(res, error.message);
         }
         else {
-            res.status(401).json({ message: 'Invalid credentials', details: 'Unknown error' });
+            (0, responseUtils_1.unauthorized)(res, 'Invalid credentials');
         }
     }
 });

@@ -4,7 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const database_1 = __importDefault(require("../config/database"));
+const db_1 = __importDefault(require("../configs/db"));
+const roleModel_1 = __importDefault(require("./roleModel"));
 class User extends sequelize_1.Model {
 }
 User.init({
@@ -22,8 +23,20 @@ User.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
+    role_id: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: roleModel_1.default,
+            key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+    },
 }, {
-    sequelize: database_1.default,
+    sequelize: db_1.default,
     tableName: 'users',
 });
+User.belongsTo(roleModel_1.default, { foreignKey: 'role_id' });
+roleModel_1.default.hasMany(User, { foreignKey: 'role_id' });
 exports.default = User;
