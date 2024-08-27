@@ -1,0 +1,21 @@
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Layout container -->
+    <app-side-bar></app-side-bar>
+
+    <div class="layout-page bg-dark-demo">
+      <!-- nav -->
+      <app-nav></app-nav>
+      <!-- / nav -->
+
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        <!-- routing -->
+        <router-outlet></router-outlet>
+        <div class="content-backdrop fade"></div>
+      </div>
+      <!-- / Content wrapper -->
+    </div>
+  </div>
+  <div class="layout-overlay layout-menu-toggle" (click)="toggleIcon()"></div>
+</div>
