@@ -1,0 +1,95 @@
+<!--  Two Steps Verification -->
+<div class="card">
+  <div class="card-body">
+    <!-- Logo -->
+    <div class="app-brand justify-content-center">
+      <a href="index.html" class="app-brand-link gap-2">
+        <img
+          src="../assets/img/logo/logo.png"
+          alt=""
+          width="150"
+          height="150"
+        />
+      </a>
+    </div>
+    <!-- /Logo -->
+    <h4 class="mb-2">Two Step Verification 💬</h4>
+    <p class="text-start mb-4">
+      We sent a verification code to your email. Enter the code from the email
+      in the field below.
+      <span class="fw-medium d-block mt-2">******1234</span>
+    </p>
+    <p class="mb-0 fw-medium">Type your 6 digit security code</p>
+    <p class="mb-0 fw-medium">00:{{ timeRemaining | async }}s</p>
+    <form
+      #formData="ngForm"
+      id="twoStepsForm"
+      class="fv-plugins-bootstrap5 fv-plugins-framework"
+      novalidate="novalidate"
+      (ngSubmit)="onSubmit(formData.value)"
+    >
+      <div class="mb-3 fv-plugins-icon-container">
+        <div
+          class="auth-input-wrapper d-flex align-items-center justify-content-sm-between numeral-mask-wrapper"
+        >
+          <input
+            type="tel"
+            class="form-control auth-input h-px-50 text-center numeral-mask mx-1 my-2"
+            maxlength="1"
+            autofocus=""
+            (keyup)="updateOtp($event)"
+          />
+          <input
+            type="tel"
+            class="form-control auth-input h-px-50 text-center numeral-mask mx-1 my-2"
+            maxlength="1"
+            autofocus=""
+            (keyup)="updateOtp($event)"
+          />
+          <input
+            type="tel"
+            class="form-control auth-input h-px-50 text-center numeral-mask mx-1 my-2"
+            maxlength="1"
+            autofocus=""
+            (keyup)="updateOtp($event)"
+          />
+          <input
+            type="tel"
+            class="form-control auth-input h-px-50 text-center numeral-mask mx-1 my-2"
+            maxlength="1"
+            autofocus=""
+            (keyup)="updateOtp($event)"
+          />
+          <input
+            type="tel"
+            class="form-control auth-input h-px-50 text-center numeral-mask mx-1 my-2"
+            maxlength="1"
+            autofocus=""
+            (keyup)="updateOtp($event)"
+          />
+          <input
+            type="tel"
+            class="form-control auth-input h-px-50 text-center numeral-mask mx-1 my-2"
+            maxlength="1"
+            autofocus=""
+            (keyup)="updateOtp($event)"
+          />
+        </div>
+        <!-- Create a hidden field which is combined by 3 fields above -->
+        <input type="hidden" name="otp" [(ngModel)]="combinedOtp" />
+        <div
+          class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+        ></div>
+      </div>
+      <button type="submit" class="btn btn-primary d-grid w-100 mb-3">
+        Verify my account
+      </button>
+      <div class="text-center">
+        Didn't get the code?
+        <a href="javascript:void(0);" (click)="onDelete()"> Resend </a>
+      </div>
+      <input type="hidden" />
+    </form>
+  </div>
+</div>
+<!-- / Two Steps Verification -->

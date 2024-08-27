@@ -1,0 +1,75 @@
+<div
+  class="modal fade show"
+  id="editUser"
+  aria-modal="true"
+  role="dialog"
+  [ngStyle]="{ display: isShowEdit ? 'block' : 'none' }"
+>
+  <div
+    class="modal-dialog modal-lg modal-simple modal-edit-user"
+    style="max-width: 500px"
+  >
+    <div class="modal-content">
+      <div class="modal-body">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeDialog()"
+        ></button>
+        <div class="text-center mb-4">
+          <h3>{{ "buttons.edit-category" | translate }}</h3>
+        </div>
+        <form
+          #formData="ngForm"
+          class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
+          novalidate="novalidate"
+          (ngSubmit)="onSubmit(formData.value)"
+        >
+          <div class="col-12 fv-plugins-icon-container">
+            <label class="form-label" for="fullname">{{
+              "labels.category" | translate
+            }}</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              placeholder="{{ 'labels.category' | translate }}"
+              ngModel
+              [(ngModel)]="item.name"
+            />
+
+            <div
+              class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+            >
+              <div
+                class="text-danger"
+                data-field="name"
+                *ngFor="let error of errors"
+                [ngClass]="error.field === 'name' ? 'd-block' : 'd-none'"
+              >
+                {{ error.message }}
+              </div>
+            </div>
+          </div>
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary me-sm-3 me-1">
+              {{ "buttons.submit" | translate }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-label-secondary"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              (click)="closeDialog()"
+            >
+              {{ "buttons.cancel" | translate }}
+            </button>
+          </div>
+          <input type="hidden" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
