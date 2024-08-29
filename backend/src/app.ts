@@ -1,8 +1,11 @@
 import express from 'express';
 import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
+import languageRouter from './routes/languageRouter';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
+import path from 'path';
 
 const app = express();
 
@@ -30,6 +33,11 @@ app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+app.use(express.static(path.join(__dirname, 'public/uploads')));
+
 app.use('/api/auth', authRoutes);
+app.use('/users', userRoutes);
+app.use('/languages', languageRouter);
+
 
 app.listen(5000, () => console.log('Server running on port 5000'));

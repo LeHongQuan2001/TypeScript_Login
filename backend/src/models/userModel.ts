@@ -1,54 +1,102 @@
-import { Model, DataTypes, ForeignKey } from 'sequelize';
-import sequelize from '../configs/db';
+import { Table, Column, Model, ForeignKey, BelongsTo, DataType, HasMany, Index } from 'sequelize-typescript';
 import Role from './roleModel';
+import UserPermission from './userPermissionModel';
 
 interface IUserAttributes {
-    id?: number;
-    email: string;
-    password: string;
-    role_id: number;
+  id?: number;
+  fullname?: string;
+  avatar?: string;
+  username: string;
+  email: string;
+  password: string;
+  phone?: string;
+  address?: string;
+  role_id?: number;
+  status?: string;
 }
 
+@Table({
+  tableName: 'users',
+  timestamps: true,
+  indexes: [
+    {
+      unique: true,
+      fields: ['email'],
+    },
+  ],
+})
 class User extends Model<IUserAttributes> implements IUserAttributes {
-    public id!: number;
-    public email!: string;
-    public password!: string;
-    public role_id!: ForeignKey<number>;
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+  @Column({
+    type: DataType.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  })
+  public id!: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  public fullname!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  public avatar!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  public username!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  // @Index('email_index')
+  public email!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  public password!: string;
+
+  @Column({
+  type: DataType.STRING,
+  allowNull: false,
+  })
+  public phone!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  public address!: string;
+  
+  @ForeignKey(() => Role)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+  })
+  public role_id!: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  public status!: string;
+
+  @BelongsTo(() => Role)
+  public role!: Role;
+
+  @HasMany(() => UserPermission)
+  public userPermissions!: UserPermission[];
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 }
-
-User.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    role_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: Role,
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-}, {
-    sequelize,
-    tableName: 'users',
-});
-
-User.belongsTo(Role, { foreignKey: 'role_id' });
-Role.hasMany(User, { foreignKey: 'role_id' });
 
 export default User;

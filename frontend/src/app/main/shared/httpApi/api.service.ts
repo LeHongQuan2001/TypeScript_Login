@@ -19,7 +19,7 @@ interface AuthResponse {
 
 export class ApiService {
 
-  private apiUrl = "http://localhost:3000"
+  private apiUrl = "http://localhost:5000"
 
   constructor(private http: HttpClient) {}
 
@@ -110,34 +110,12 @@ export class ApiService {
 
   // create a item
   createItem(nameApi: string, queryBody: any): Observable<any> {
-
     const accessToken = localStorage.getItem("access_token")
-
     const url = `${this.apiUrl}/${nameApi}/create`
-
     const headers = {
       "Authorization": `Bearer ${accessToken}`
     }
-
     return this.http.post<any>(url, queryBody, { headers })
-    .pipe(
-        tap(response => {
-          
-          // console.log('Response received from API:', response); // Log response to debug
-
-          if (response && response.data) {
-            this.storeTokens(response.data);
-          } else {
-            console.error('Invalid response structure:', response);
-          }
-
-        }),
-        catchError(error => {
-            console.error('Error in API call:', error);
-            return throwError(error);
-        })
-      );
-
   }
 
   // delete a item

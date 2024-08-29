@@ -1,0 +1,33 @@
+import { Op } from "sequelize";
+import Language from "../models/languageModel";
+import { Sequelize } from "sequelize-typescript";
+
+export const list = async (page: string = '1', limit: string = '10', search: string = ''): Promise<any> => {
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+
+    const pageNo = isNaN(pageNumber) ? 1 : pageNumber;
+    const limitNo = isNaN(limitNumber) ? 10 : limitNumber;
+
+    let languages;
+    if (search && search != "") {
+      const valueLowCase = search.toLowerCase();
+      languages = await Language.findAll({
+        where: {
+          [Op.or]: [
+            Sequelize.literal(
+              `MATCH(name) AGAINST('${valueLowCase}' IN NATURAL LANGUAGE MODE)`
+            ),
+          ],
+        },
+      });
+    } else {
+      languages = await Language.findAll();
+    }
+
+    const startIndex = (pageNo - 1) * limitNo;
+    const endIndex = pageNo * limitNo;
+    const pages = Math.ceil(languages.length / limitNo);
+    const result = languages.slice(startIndex, endIndex);
+    return { result, pages };
+}
