@@ -1,6 +1,7 @@
 import { role } from "../role/role";
 
 export interface User {
+    selected: unknown;
     id: number,
     fullname: string,
     avatar: string,
