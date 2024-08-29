@@ -63,3 +63,19 @@ export const createNewUser = async (user: any): Promise<any> => {
     const users = await User.create(user);
     return users;
 };
+
+export const updateInfoUser = async (userId: string, user: any): Promise<any> => {
+  if (user.password) {
+      const hashPW = await bcrypt.hash(user.password, 10);
+      user.password = hashPW;
+  }
+  const result = await User.update(user, {
+    where: { id: userId },
+  });
+  return result;
+};
+
+export const deleteInfoUser = async (ids: string[]): Promise<any> => {
+  await User.destroy({ where: { id: ids } });
+    return { message: "Users deleted successfully" };
+};
