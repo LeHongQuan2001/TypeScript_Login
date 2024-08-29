@@ -1,10 +1,10 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
 
 @Table({
-  tableName: 'roles',
+  tableName: 'languages',
   timestamps: true,
 })
-class Role extends Model {
+class Language extends Model {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -16,13 +16,19 @@ class Role extends Model {
     type: DataType.STRING,
     allowNull: true,
   })
-  public name!: string;
+  public flag!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
   })
-  public permissions!: string;
+  public locale!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  public name!: string;
 }
 
-export default Role;
+export default Language;

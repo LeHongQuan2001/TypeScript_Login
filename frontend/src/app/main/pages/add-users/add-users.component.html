@@ -1,14 +1,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
-  <form
-    #formData="ngForm"
-    enctype="multipart/form-data"
-    class="app-ecommerce dark-style"
-    (ngSubmit)="onSubmit(formData.value)"
-  >
+  <form #formData="ngForm" enctype="multipart/form-data" class="app-ecommerce dark-style"
+    (ngSubmit)="onSubmit(formData.value)">
     <!-- Add Product -->
-    <div
-      class="d-flex flex-wrap justify-content-between align-items-center mb-3"
-    >
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
       <div class="d-flex flex-column justify-content-center">
         <h4 class="mb-1 mt-3">Add a new User</h4>
         <p class="text-muted">
@@ -32,15 +26,8 @@
             <div class="mb-3">
               <label class="form-label" for="">{{
                 "labels.fullname" | translate
-              }}</label>
-              <input
-                type="text"
-                class="form-control"
-                id="fullname"
-                placeholder="Full name"
-                name="fullname"
-                ngModel
-              />
+                }}</label>
+              <input type="text" class="form-control" id="fullname" placeholder="Full name" name="fullname" ngModel />
             </div>
             <div class="row mb-3">
               <div class="col-6 mb-3">
@@ -48,20 +35,10 @@
                   {{ "labels.username" | translate }}
                   <span class="text-danger">*</span>
                 </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  placeholder="{{ 'labels.username' | translate }}"
-                  name="username"
-                  ngModel
-                />
-                <div
-                  class="d-block text-danger"
-                  data-field="username"
-                  *ngFor="let error of errors"
-                  [ngClass]="error.field === 'username' ? 'd-block' : 'd-none'"
-                >
+                <input type="text" class="form-control" id="username" placeholder="{{ 'labels.username' | translate }}"
+                  name="username" ngModel />
+                <div class="d-block text-danger" data-field="username" *ngFor="let error of errors"
+                  [ngClass]="error.field === 'username' ? 'd-block' : 'd-none'">
                   {{ error.message }}
                 </div>
               </div>
@@ -70,35 +47,18 @@
                   Email
                   <span class="text-danger">*</span>
                 </label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Email"
-                  name="email"
-                  ngModel
-                />
-                <div
-                  class="d-block text-danger"
-                  data-field="email"
-                  *ngFor="let error of errors"
-                  [ngClass]="error.field === 'email' ? 'd-block' : 'd-none'"
-                >
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email" ngModel />
+                <div class="d-block text-danger" data-field="email" *ngFor="let error of errors"
+                  [ngClass]="error.field === 'email' ? 'd-block' : 'd-none'">
                   {{ error.message }}
                 </div>
               </div>
               <div class="col-6 mb-3">
                 <label class="form-label" for="">{{
                   "labels.birthday" | translate
-                }}</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="birthday"
-                  placeholder="03-11-2003"
-                  name="birthday"
-                  ngModel
-                />
+                  }}</label>
+                <input type="date" class="form-control" id="birthday" placeholder="03-11-2003" name="birthday"
+                  ngModel />
               </div>
               <div class="col-6 mb-3">
                 <label class="form-label" for="modalEditUserPhone">
@@ -106,20 +66,11 @@
                   <span class="text-danger">*</span>
                 </label>
                 <div class="input-group input-group-merge">
-                  <input
-                    type="text"
-                    name="phone"
-                    class="form-control phone-number-mask"
-                    placeholder="0123 456 789"
-                    ngModel
-                  />
+                  <input type="text" name="phone" class="form-control phone-number-mask" placeholder="0123 456 789"
+                    ngModel />
                 </div>
-                <div
-                  class="d-block text-danger"
-                  data-field="phone"
-                  *ngFor="let error of errors"
-                  [ngClass]="error.field === 'phone' ? 'd-block' : 'd-none'"
-                >
+                <div class="d-block text-danger" data-field="phone" *ngFor="let error of errors"
+                  [ngClass]="error.field === 'phone' ? 'd-block' : 'd-none'">
                   {{ error.message }}
                 </div>
               </div>
@@ -128,9 +79,7 @@
         </div>
         <!-- Media -->
         <div class="card mb-4">
-          <div
-            class="card-header d-flex justify-content-between align-items-center"
-          >
+          <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0 card-title">
               Avatar
               <span class="text-danger">*</span>
@@ -141,78 +90,39 @@
           </div>
           <div class="card-body">
             <!--  dz-started dz-max-files-reached -->
-            <form
-              class="dropzone needsclick dz-clickable"
-              id="dropzone-basic"
-              [ngClass]="{ 'dz-started dz-max-files-reached': image }"
-              (click)="triggerFileInputClick()"
-            >
+            <form class="dropzone needsclick dz-clickable" id="dropzone-basic"
+              [ngClass]="{ 'dz-started dz-max-files-reached': image }" (click)="triggerFileInputClick()">
               <div class="dz-message needsclick my-5">
-                <p class="fs-4 note needsclick my-2">
-                  {{ "labels.drag" | translate }}
-                </p>
-                <small class="text-muted d-block fs-6 my-2">{{
-                  "labels.or" | translate
-                }}</small>
-                <span
-                  class="note needsclick btn bg-label-primary d-inline"
-                  id="btnBrowse"
-                  >Browse image
-                </span>
-                <input
-                  type="file"
-                  id="upload"
-                  name="avatar"
-                  class="account-file-input"
-                  hidden
-                  (change)="onFileSelected($event)"
-                />
+                <p class="fs-4 note needsclick my-2">{{ "labels.drag" | translate }}</p>
+                <small class="text-muted d-block fs-6 my-2">{{ "labels.or" | translate }}</small>
+                <span class="note needsclick btn bg-label-primary d-inline" id="btnBrowse">Browse image</span>
+                <input type="file" id="upload" name="avatar" class="account-file-input" hidden
+                  (change)="onFileSelected($event)" />
               </div>
+
               <!-- img -->
-              <div
-                class="dz-preview dz-processing dz-image-preview dz-success dz-complete"
-                [class.d-none]="!image"
-              >
+              <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete" [class.d-none]="!imageSrc">
                 <div class="dz-details">
                   <div class="dz-thumbnail">
-                    <img
-                      data-dz-thumbnail=""
-                      [alt]="image?.name"
-                      [src]="'assets/img/avatars/' + image?.name"
-                    />
-                    <span class="dz-nopreview">No preview</span>
+                    <img style="margin-bottom: 20px;" data-dz-thumbnail="" [alt]="imageName" [src]="imageSrc" />
                     <div class="dz-success-mark"></div>
                     <div class="dz-error-mark"></div>
                     <div class="dz-error-message">
                       <span data-dz-errormessage=""></span>
                     </div>
                     <div class="progress" [class.d-block]="uploadProgress">
-                      <div
-                        class="progress-bar progress-bar-primary"
-                        role="progressbar"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        [style.width.%]="25"
-                        [attr.aria-valuenow]="25"
-                      ></div>
+                      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0"
+                        aria-valuemax="100" [style.width.%]="25" [attr.aria-valuenow]="25"></div>
                     </div>
                   </div>
-                  <div class="dz-filename" data-dz-name="">
-                    {{ image?.name }}
-                  </div>
-                  <div class="dz-size" data-dz-size="">
-                    <strong>{{ imageSize }}</strong> KB
-                  </div>
+                  <div class="dz-filename" data-dz-name="">{{ imageName }}</div>
+                  <div class="dz-size" data-dz-size=""><strong>{{ imageSize }}</strong> KB</div>
                 </div>
-                <a
-                  class="dz-remove"
-                  href="javascript:undefined;"
-                  data-dz-remove=""
-                  (click)="image = null"
-                  >Remove file</a
-                >
+                <a class="dz-remove" href="javascript:undefined;" data-dz-remove="" (click)="removeImage()">Remove
+                  file</a>
               </div>
             </form>
+
           </div>
         </div>
         <!-- /Media -->
@@ -230,6 +140,7 @@
             <div class="mb-3 col ecommerce-select2-dropdown">
               <label class="form-label mb-1" for="vendor">
                 {{ "labels.role" | translate }}
+                <span class="text-danger">*</span>
               </label>
               <div class="position-relative">
                 <select id="" name="role_id" class="form-select" ngModel>
@@ -243,15 +154,9 @@
             <div class="mb-3 col ecommerce-select2-dropdown">
               <label class="form-label" for="modalEditUserStatus">{{
                 "labels.status" | translate
-              }}</label>
+                }}</label>
               <div class="position-relative">
-                <select
-                  id=""
-                  name="status"
-                  class="form-select"
-                  aria-label="Default select example"
-                  ngModel
-                >
+                <select id="" name="status" class="form-select" aria-label="Default select example" ngModel>
                   <option value="">{{ "labels.select" | translate }}</option>
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -260,19 +165,10 @@
             </div>
             <!-- Address -->
             <div class="mb-3 col ecommerce-select2-dropdown">
-              <label class="form-label" for="modalEditUserCountry"
-                >Address</label
-              >
+              <label class="form-label" for="modalEditUserCountry">Address</label>
               <div class="position-relative">
-                <select
-                  id="modalEditUserCountry"
-                  name="address"
-                  class="select2 form-select select2-hidden-accessible"
-                  data-allow-clear="true"
-                  data-select2-id="modalEditUserCountry"
-                  aria-hidden="true"
-                  ngModel
-                >
+                <select id="modalEditUserCountry" name="address" class="select2 form-select select2-hidden-accessible"
+                  data-allow-clear="true" data-select2-id="modalEditUserCountry" aria-hidden="true" ngModel>
                   <option value="" data-select2-id="5">
                     {{ "labels.select" | translate }}
                   </option>
