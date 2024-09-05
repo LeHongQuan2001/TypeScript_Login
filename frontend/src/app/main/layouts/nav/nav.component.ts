@@ -50,7 +50,7 @@ export class NavComponent implements OnInit {
   }
 
   loadLanguage() {
-    this.http.getItems('/languages', this.search, this.currentPage, this.limit).subscribe({
+    this.http.getItems('/languages', this.search, this.currentPage, this.limit, '', '').subscribe({
       next: (data: any) => {
         this.languages = data["data"]["result"]
         this.languages.map((language: language) => {

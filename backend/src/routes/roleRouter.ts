@@ -1,0 +1,10 @@
+import express from 'express';
+import authenticateToken from '../middlewares/authenticateToken';
+import { index } from '../controllers/roleController';
+
+const router = express.Router();
+
+router.use(authenticateToken);
+router.get('', index);
+
+export default router;

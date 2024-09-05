@@ -45,14 +45,11 @@ export class AddUsersComponent {
         this.router.navigate(['/users/list']);
       },
       error: (error: any) => {
-        this.errors = error['error']['data']['errors'];
-        this.errors.forEach((error, index) =>
-          this.toastService.show({
-            template: error['message'],
-            classname: 'toast--error',
-            delay: 2000 + index * 500,
-          })
-        );
+        this.toastService.show({
+          template: error['error']['data'],
+          classname: 'toast--error',
+          delay: 2000,
+        });
       },
     });
   }

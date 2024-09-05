@@ -42,9 +42,10 @@
           </button>
         </div>
         <div class="card-header border-bottom">
-          <div class="row justify-content-between">
-            <div class="col-md-4 col-4 px-0">
-              <div class="search-input ps-re">
+          <div class="row">
+            <div class="col d-flex justify-content-between align-items-center">
+              <!-- Search Input -->
+              <div class="col-md-4 search-input ps-re d-flex">
                 <a
                   class="ps-ab p-8-11 fs-18 fl-r opacity-08 cursor-pointer"
                   (click)="onSubmitSearch(search)"
@@ -62,26 +63,56 @@
                   name="search"
                   ngModel
                   [(ngModel)]="search"
+                  (keyup.enter)="onSubmitSearch(search)"
                 />
               </div>
-            </div>
-            <div class="col-md-1 col-2">
-              <div class="dataTables_length" id="DataTables_Table_0_length">
-                <select
-                  name="DataTables_Table_0_length"
-                  aria-controls="DataTables_Table_0"
-                  class="form-select"
-                  (change)="handleItemsPerPage($event)"
-                >
-                  <option value="10" selected>10</option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
+        
+              <!-- Select Boxes -->
+              <div class="d-flex">
+                <div class="dataTables_length me-2" id="DataTables_Table_0_role">
+                  <select
+                    name="userRoleFilter"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleRoleFilter($event)"
+                  >
+                    <option value="" selected>All Roles</option>
+                    <option value="1">Admin</option>
+                    <option value="2">User</option>
+                  </select>
+                </div>
+                <div class="dataTables_length me-2" id="DataTables_Table_0_status">
+                  <select
+                    name="userStatusFilter"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleStatusFilter($event)"
+                  >
+                    <option value="" selected>All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <!-- <option value="pending">Pending</option> -->
+                  </select>
+                </div>
+                
+                <div class="dataTables_length" id="DataTables_Table_0_length">
+                  <select
+                    name="DataTables_Table_0_length"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleItemsPerPage($event)"
+                  >
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        
         <div class="table-responsive text-nowrap">
           <table
             class="table table-striped border-bottom datatables-users dataTable no-footer dtr-column"

@@ -3,7 +3,7 @@ import config from './config';
 import User from '../models/userModel';
 import { Config, DBConfig } from './config';
 import Role from '../models/roleModel';
-import UserPermission from '../models/userPermissionModel';
+import UserPermission from '../models/groupPermissionModel';
 import Permission from '../models/permissionModel';
 import Language from '../models/languageModel';
 

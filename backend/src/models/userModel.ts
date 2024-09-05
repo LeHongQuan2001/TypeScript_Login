@@ -1,6 +1,6 @@
 import { Table, Column, Model, ForeignKey, BelongsTo, DataType, HasMany, Index } from 'sequelize-typescript';
 import Role from './roleModel';
-import UserPermission from './userPermissionModel';
+import groupPermission from './groupPermissionModel';
 
 interface IUserAttributes {
   id?: number;
@@ -55,7 +55,6 @@ class User extends Model<IUserAttributes> implements IUserAttributes {
     type: DataType.STRING,
     allowNull: false,
   })
-  // @Index('email_index')
   public email!: string;
 
   @Column({
@@ -91,9 +90,6 @@ class User extends Model<IUserAttributes> implements IUserAttributes {
 
   @BelongsTo(() => Role)
   public role!: Role;
-
-  @HasMany(() => UserPermission)
-  public userPermissions!: UserPermission[];
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

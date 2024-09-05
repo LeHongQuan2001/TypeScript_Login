@@ -1,18 +1,18 @@
 import { Table, Column, Model, ForeignKey, BelongsTo, DataType } from 'sequelize-typescript';
-import User from './userModel';
 import Permission from './permissionModel';
+import Role from './roleModel';
 
-interface UserPermissionAttributes {
+interface groupPermissionAttributes {
   id?: number;
-  userId: number;
+  roleId: number;
   permissionId: number;
 }
 
 @Table({
-  tableName: 'userpermissions',
+  tableName: 'grouppermissions',
   timestamps: true,
 })
-class UserPermission extends Model<UserPermissionAttributes> implements UserPermissionAttributes {
+class groupPermission extends Model<groupPermissionAttributes> implements groupPermissionAttributes {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -20,12 +20,12 @@ class UserPermission extends Model<UserPermissionAttributes> implements UserPerm
   })
   public id!: number;
 
-  @ForeignKey(() => User)
+  @ForeignKey(() => Role)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  public userId!: number;
+  public roleId!: number;
 
   @ForeignKey(() => Permission)
   @Column({
@@ -34,8 +34,8 @@ class UserPermission extends Model<UserPermissionAttributes> implements UserPerm
   })
   public permissionId!: number;
 
-  @BelongsTo(() => User)
-  public user!: User;
+  @BelongsTo(() => Role)
+  public role!: Role;
 
   @BelongsTo(() => Permission)
   public permission!: Permission;
@@ -44,4 +44,4 @@ class UserPermission extends Model<UserPermissionAttributes> implements UserPerm
   public readonly updatedAt!: Date;
 }
 
-export default UserPermission;
+export default groupPermission;

@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
           } else {
             localStorage.removeItem('rememberMe');
           }
-          this.router.navigate(['/home']);
+          this.router.navigate(['/users/list']);
         },
         error: (error) => {
           console.error(error);

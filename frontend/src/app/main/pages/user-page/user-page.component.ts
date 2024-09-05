@@ -36,6 +36,9 @@ export class UserPageComponent implements OnInit {
   idDelete = new Set<number>();
   checkDeleteAll: boolean = false;
 
+  role: string = '';
+  status: string = '';
+
   constructor(
     private selectAllService: SelectAllService,
     private itemDetail: UserPageService,
@@ -54,7 +57,7 @@ export class UserPageComponent implements OnInit {
     if (!accessToken) {
       this.router.navigate(['/auth/login']);
     }
-    this.api.getItems('/users', this.search, this.currentPage, this.limit).subscribe({
+    this.api.getItems('/users', this.search, this.currentPage, this.limit, this.role, this.status).subscribe({
       next: (data: any) => {
         data = data.data;
         this.items = data['result'].slice();
@@ -174,5 +177,17 @@ export class UserPageComponent implements OnInit {
       localStorage.removeItem('classname');
       localStorage.removeItem('delay');
     }
+  }
+
+  handleRoleFilter(event: Event): void {
+    const optionRole = event.target as HTMLSelectElement;
+    this.role = optionRole.value;
+    this.loadItems();
+  }
+
+  handleStatusFilter(event: Event): void {
+    const optionStatus = event.target as HTMLSelectElement;
+    this.status = optionStatus.value;
+    this.loadItems();
   }
 }

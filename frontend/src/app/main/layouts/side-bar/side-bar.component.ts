@@ -27,6 +27,7 @@ export class SideBarComponent implements OnInit {
     users: 'users-list',
     categories: 'categories-list',
     languages: 'languages-list',
+    permissions: 'role&permission',
   }
 
   ngOnInit(): void {

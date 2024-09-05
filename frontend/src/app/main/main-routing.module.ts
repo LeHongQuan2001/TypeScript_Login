@@ -9,6 +9,8 @@ import { MyProfilePageComponent } from './pages/my-profile-page/components/my-pr
 import { MainComponent } from './main.component';
 import { AddUsersComponent } from './pages/add-users/add-users.component';
 import { authGuard } from '../auth/auth.guard';
+import { RolesComponent } from './pages/roles/roles.component';
+import { PermissionsComponent } from './pages/permissions/permissions.component';
   
 const routes: Routes = [
   {
@@ -23,6 +25,8 @@ const routes: Routes = [
       { path: 'users/view-detail/:id', component: ViewDetailComponent, canActivate: [authGuard] },
       { path: 'languages/list', component: LanguagePageComponent, canActivate: [authGuard] },
       { path: 'my-profile', component: MyProfilePageComponent, canActivate: [authGuard] },
+      { path: 'role&permission/role', component: RolesComponent, canActivate: [authGuard] },
+      { path: 'role&permission/permission', component: PermissionsComponent, canActivate: [authGuard] },
     ]
   },
   

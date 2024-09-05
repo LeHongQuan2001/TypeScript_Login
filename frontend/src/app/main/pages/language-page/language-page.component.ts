@@ -44,11 +44,7 @@ export class LanguagePageComponent implements OnInit {
   }
  
   loadItems() {
-    // const accessToken = localStorage.getItem('access_token')
-    // if (!accessToken) {
-    //   this.router.navigate(['/auth/login'])
-    // }
-    this.http.getItems("/languages", this.search, this.currentPage, this.limit).subscribe({
+    this.http.getItems("/languages", this.search, this.currentPage, this.limit, '', '').subscribe({
       next: (data: any) => {
         data = data["data"]
         this.items = data["result"].slice()
