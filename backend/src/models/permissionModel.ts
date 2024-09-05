@@ -1,4 +1,5 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import groupPermission from './groupPermissionModel';
 
 interface PermissionAttributes {
   id?: number;
@@ -22,6 +23,9 @@ class Permission extends Model<PermissionAttributes> implements PermissionAttrib
     allowNull: false,
   })
   public name!: string;
+
+  @HasMany(() => groupPermission)
+  public groupPermission!: groupPermission[];
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

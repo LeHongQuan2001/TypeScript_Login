@@ -4,7 +4,10 @@
         "notification": "Notifications",
         "admin": "admin",
         "user": "user",
-        "list": "List"
+        "list": "List",
+        "role": "Role",
+        "permission": "Permission",
+        "role&permission": "Role & Permission"
     },
     "modules": {
         "user": {

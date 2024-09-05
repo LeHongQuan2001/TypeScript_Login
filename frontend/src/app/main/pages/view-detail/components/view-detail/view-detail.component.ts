@@ -94,9 +94,12 @@ export class ViewDetailComponent implements OnInit {
         this.loadItem()
       },
       error: (error: any) => {
-        this.errors = error["error"]["data"]["errors"];
-        this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 5000}));
-      }
+        this.toastService.show({
+          template: error['error']['data'],
+          classname: 'toast--error',
+          delay: 2000,
+        });
+      },
     })
   }
   

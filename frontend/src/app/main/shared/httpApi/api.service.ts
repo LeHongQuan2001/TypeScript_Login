@@ -93,13 +93,15 @@ export class ApiService {
   }
 
 // get all items
-  getItems(nameApi: string, search: string, page: number, limit: number): Observable<any> {
+  getItems(nameApi: string, search: string, page: number, limit: number, role: string, status: string): Observable<any> {
     const accessToken = localStorage.getItem("access_token")
 
     const query = new HttpParams()
     .set("search", search)
     .set("page", page)
     .set("limit", limit)
+    .set("role", role)
+    .set("status", status)
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${accessToken}`

@@ -1,4 +1,6 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import groupPermission from './groupPermissionModel';
+import User from './userModel';
 
 @Table({
   tableName: 'roles',
@@ -18,11 +20,11 @@ class Role extends Model {
   })
   public name!: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: true,
-  })
-  public permissions!: string;
+  @HasMany(() => groupPermission)
+  public groupPermission!: groupPermission[];
+
+  @HasMany(() => User)
+  public users!: User[];
 }
 
 export default Role;
