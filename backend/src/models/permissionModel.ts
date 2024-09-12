@@ -1,9 +1,11 @@
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import rolePermission from './rolePermissionModel';
 import groupPermission from './groupPermissionModel';
 
 interface PermissionAttributes {
   id?: number;
   name: string;
+  groupId: number;
 }
 
 @Table({
@@ -24,8 +26,18 @@ class Permission extends Model<PermissionAttributes> implements PermissionAttrib
   })
   public name!: string;
 
-  @HasMany(() => groupPermission)
-  public groupPermission!: groupPermission[];
+  @ForeignKey(() => groupPermission)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  public groupId!: number;
+
+  @BelongsTo(() => groupPermission)
+  public groupPermission!: groupPermission;
+
+  @HasMany(() => rolePermission)
+  public rolePermission!: rolePermission[];
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

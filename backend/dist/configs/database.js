@@ -3,45 +3,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const config = {
-    environment: process.env.DATABASE_ENV || "development",
-    development: {
-        username: process.env.DATABASE_USERNAME || "root",
-        password: process.env.DATABASE_PASSWORD || "root",
-        database: process.env.DATABASE_NAME || "blogs",
-        host: process.env.DATABASE_HOST || "localhost",
-        port: Number(process.env.DATABASE_PORT) || 3306,
-        dialect: "mysql",
-        dialectOptions: {
-            bigNumberStrings: true,
-            socketPath: process.env.DATABASE_SOCKET || "",
-        },
-    },
-    test: {
-        username: process.env.DATABASE_TEST_USERNAME || "root",
-        password: process.env.DATABASE_TEST_PASSWORD,
-        database: process.env.DATABASE_TEST_NAME || "blogs",
-        host: process.env.DATABASE_TEST_HOST || "127.0.0.1",
-        port: Number(process.env.DATABASE_TEST_PORT) || 3306,
-        dialect: "mysql",
-        dialectOptions: {
-            bigNumberStrings: true,
-            socketPath: process.env.DATABASE_TEST_SOCKET || "",
-            charset: "utf8mb4",
-        },
-    },
-    production: {
-        username: process.env.PROD_DB_USERNAME || "",
-        password: process.env.PROD_DB_PASSWORD || "",
-        database: process.env.PROD_DB_NAME || "",
-        host: process.env.PROD_DB_HOSTNAME || "",
-        port: Number(process.env.PROD_DB_PORT) || 3306,
-        dialect: "mysql",
-        dialectOptions: {
-            bigNumberStrings: true,
-        },
-    },
-};
-exports.default = config;
+const sequelize_typescript_1 = require("sequelize-typescript");
+const config_1 = __importDefault(require("./config"));
+const userModel_1 = __importDefault(require("../models/userModel"));
+const roleModel_1 = __importDefault(require("../models/roleModel"));
+const permissionModel_1 = __importDefault(require("../models/permissionModel"));
+const languageModel_1 = __importDefault(require("../models/languageModel"));
+const groupPermissionModel_1 = __importDefault(require("../models/groupPermissionModel"));
+const rolePermissionModel_1 = __importDefault(require("../models/rolePermissionModel"));
+const environment = process.env.DATABASE_ENV || "development";
+const dbConfig = config_1.default[environment];
+const sequelize = new sequelize_typescript_1.Sequelize({
+    dialect: dbConfig.dialect,
+    host: dbConfig.host,
+    username: dbConfig.username,
+    password: dbConfig.password,
+    database: dbConfig.database,
+    port: dbConfig.port,
+    dialectOptions: dbConfig.dialectOptions,
+    models: [userModel_1.default, roleModel_1.default, permissionModel_1.default, languageModel_1.default, groupPermissionModel_1.default, rolePermissionModel_1.default],
+    logging: true,
+});
+exports.default = sequelize;

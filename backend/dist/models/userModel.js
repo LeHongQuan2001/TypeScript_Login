@@ -1,42 +1,107 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const sequelize_1 = require("sequelize");
-const db_1 = __importDefault(require("../configs/db"));
+const sequelize_typescript_1 = require("sequelize-typescript");
 const roleModel_1 = __importDefault(require("./roleModel"));
-class User extends sequelize_1.Model {
-}
-User.init({
-    id: {
-        type: sequelize_1.DataTypes.INTEGER,
+let User = class User extends sequelize_typescript_1.Model {
+};
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-    },
-    email: {
-        type: sequelize_1.DataTypes.STRING,
+    }),
+    __metadata("design:type", Number)
+], User.prototype, "id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
         allowNull: false,
-        unique: true,
-    },
-    password: {
-        type: sequelize_1.DataTypes.STRING,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "fullname", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
         allowNull: false,
-    },
-    role_id: {
-        type: sequelize_1.DataTypes.INTEGER,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "avatar", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
         allowNull: false,
-        references: {
-            model: roleModel_1.default,
-            key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-    },
-}, {
-    sequelize: db_1.default,
-    tableName: 'users',
-});
-User.belongsTo(roleModel_1.default, { foreignKey: 'role_id' });
-roleModel_1.default.hasMany(User, { foreignKey: 'role_id' });
+    }),
+    __metadata("design:type", String)
+], User.prototype, "username", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "phone", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "address", void 0);
+__decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => roleModel_1.default),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: true,
+    }),
+    __metadata("design:type", Number)
+], User.prototype, "role_id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: true,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "status", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => roleModel_1.default),
+    __metadata("design:type", roleModel_1.default)
+], User.prototype, "role", void 0);
+User = __decorate([
+    (0, sequelize_typescript_1.Table)({
+        tableName: 'users',
+        timestamps: true,
+        indexes: [
+            {
+                unique: true,
+                fields: ['email'],
+            },
+        ],
+    })
+], User);
 exports.default = User;

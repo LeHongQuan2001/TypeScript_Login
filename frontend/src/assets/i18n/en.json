@@ -27,6 +27,7 @@
     "buttons": {
         "deleteAll": "Delete all",
         "add-new-user": "Add New User",
+        "add-new-role": "Add New Role",
         "add-new-category": "Add New Category",
         "add-new-language": "Add New Language",
         "edit-user": "Edit user",

@@ -1,18 +1,16 @@
-import { Table, Column, Model, ForeignKey, BelongsTo, DataType } from 'sequelize-typescript';
-import Permission from './permissionModel';
-import Role from './roleModel';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import Permission from './permissionModel'; // Chú ý: tên file nên là permissionModel.ts
 
-interface groupPermissionAttributes {
+interface GroupPermissionAttributes {
   id?: number;
-  roleId: number;
-  permissionId: number;
+  name: string;
 }
 
 @Table({
-  tableName: 'grouppermissions',
+  tableName: 'grouppermissions', // Chỉnh sửa cho đúng tên bảng
   timestamps: true,
 })
-class groupPermission extends Model<groupPermissionAttributes> implements groupPermissionAttributes {
+class GroupPermission extends Model<GroupPermissionAttributes> implements GroupPermissionAttributes {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -20,28 +18,17 @@ class groupPermission extends Model<groupPermissionAttributes> implements groupP
   })
   public id!: number;
 
-  @ForeignKey(() => Role)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
     allowNull: false,
   })
-  public roleId!: number;
+  public name!: string;
 
-  @ForeignKey(() => Permission)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  public permissionId!: number;
-
-  @BelongsTo(() => Role)
-  public role!: Role;
-
-  @BelongsTo(() => Permission)
-  public permission!: Permission;
+  @HasMany(() => Permission)
+  public permissions!: Permission[];
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-export default groupPermission;
+export default GroupPermission;

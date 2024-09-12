@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import groupPermission from './groupPermissionModel';
+import rolePermission from './rolePermissionModel';
 import User from './userModel';
 
 @Table({
@@ -20,8 +20,8 @@ class Role extends Model {
   })
   public name!: string;
 
-  @HasMany(() => groupPermission)
-  public groupPermission!: groupPermission[];
+  @HasMany(() => rolePermission)
+  public rolePermission!: rolePermission[];
 
   @HasMany(() => User)
   public users!: User[];

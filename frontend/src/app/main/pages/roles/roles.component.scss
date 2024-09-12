@@ -1,3 +1,23 @@
 a {
     color: #696cff
 }
+
+/* Styles for nested menu */
+.nested-menu {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .nested-menu > li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .nested-menu ul {
+    padding-left: 1.5rem;
+    list-style-type: none;
+  }
+  
+  .nested-menu li {
+    position: relative;
+  }
+  
