@@ -1,6 +1,6 @@
 import { Table, Column, Model, ForeignKey, BelongsTo, DataType, HasMany, Index } from 'sequelize-typescript';
 import Role from './roleModel';
-import groupPermission from './groupPermissionModel';
+import groupPermission from './rolePermissionModel';
 
 interface IUserAttributes {
   id?: number;

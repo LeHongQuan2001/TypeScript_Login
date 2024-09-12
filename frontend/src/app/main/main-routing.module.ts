@@ -17,7 +17,7 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'users/list', pathMatch: 'full' },
       { path: 'home', component: HomePageComponent, canActivate: [authGuard] },
       { path: 'categories/list', component: CategoryPageComponent, canActivate: [authGuard] },
       { path: 'users/list', component: UserPageComponent, canActivate: [authGuard] },

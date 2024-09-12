@@ -1,19 +1,11 @@
 import { Request, Response } from "express";
-// import { list, createInfoRole, updateInfoRole, deleteInfoRole } from "../services/roleService";
-import { list, getRoleId } from "../services/roleService";
+import { list } from "../services/permissionService";
 import { ok } from "../utils/responseUtils";
 
 export const index = async (req: Request, res: Response): Promise<void> => {
-    const { page, limit, search } = req.query as { page?: string; limit?: string; search?: string };
-    const Roles = await list(page, limit, search);
-    ok(res, Roles);
+    const Permissions = await list();
+    ok(res, Permissions);
 };
-
-export const getRole = async (req: Request, res: Response): Promise<void> => {
-    const { id } = req.query as { id: string };
-    const user = await getRoleId(id);
-    ok(res, user);
-  };
 
 // export const createRole = async (req: Request, res: Response): Promise<void> => {
 //     const Role = req.body;

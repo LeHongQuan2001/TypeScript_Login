@@ -27,6 +27,7 @@
     "buttons": {
         "deleteAll": "Xóa tất cả",
         "add-new-user": "Thêm người dùng mới",
+        "add-new-role": "Thêm vai trò mới",
         "add-new-category": "Thêm loại mới",
         "add-new-language": "Thêm ngôn ngữ mới",
         "edit-user": "Chỉnh sửa người dùng",

@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-const rolePermissionModel_1 = __importDefault(require("./rolePermissionModel"));
-const groupPermissionModel_1 = __importDefault(require("./groupPermissionModel"));
-let Permission = class Permission extends sequelize_typescript_1.Model {
+const permissionModel_1 = __importDefault(require("./permissionModel"));
+const roleModel_1 = __importDefault(require("./roleModel"));
+let RolePermission = class RolePermission extends sequelize_typescript_1.Model {
 };
 __decorate([
     (0, sequelize_typescript_1.Column)({
@@ -24,34 +24,35 @@ __decorate([
         primaryKey: true,
     }),
     __metadata("design:type", Number)
-], Permission.prototype, "id", void 0);
+], RolePermission.prototype, "id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.STRING,
-        allowNull: false,
-    }),
-    __metadata("design:type", String)
-], Permission.prototype, "name", void 0);
-__decorate([
-    (0, sequelize_typescript_1.ForeignKey)(() => groupPermissionModel_1.default),
+    (0, sequelize_typescript_1.ForeignKey)(() => roleModel_1.default),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
         allowNull: false,
     }),
     __metadata("design:type", Number)
-], Permission.prototype, "groupId", void 0);
+], RolePermission.prototype, "roleId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => groupPermissionModel_1.default),
-    __metadata("design:type", groupPermissionModel_1.default)
-], Permission.prototype, "groupPermission", void 0);
+    (0, sequelize_typescript_1.ForeignKey)(() => permissionModel_1.default),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: false,
+    }),
+    __metadata("design:type", Number)
+], RolePermission.prototype, "permissionId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => rolePermissionModel_1.default),
-    __metadata("design:type", Array)
-], Permission.prototype, "rolePermission", void 0);
-Permission = __decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => roleModel_1.default),
+    __metadata("design:type", roleModel_1.default)
+], RolePermission.prototype, "role", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => permissionModel_1.default),
+    __metadata("design:type", permissionModel_1.default)
+], RolePermission.prototype, "permission", void 0);
+RolePermission = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: 'permissions',
+        tableName: 'rolepermissions',
         timestamps: true,
     })
-], Permission);
-exports.default = Permission;
+], RolePermission);
+exports.default = RolePermission;

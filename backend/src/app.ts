@@ -7,6 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import path from 'path';
 import roleRouter from './routes/roleRouter';
+import permissionRouter from './routes/permissionRouter';
 
 const app = express();
 
@@ -39,7 +40,8 @@ app.use(express.static(path.join(__dirname, 'public/uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/languages', languageRouter);
-app.use('/role', roleRouter);
+app.use('/roles', roleRouter);
+app.use('/permissions', permissionRouter);
 
 
 app.listen(5000, () => console.log('Server running on port 5000'));

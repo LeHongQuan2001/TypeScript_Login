@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userError = exports.invalidated = exports.unauthorized = exports.error = exports.notFound = exports.ok = void 0;
+exports.Failed = exports.userError = exports.invalidated = exports.unauthorized = exports.error = exports.notFound = exports.ok = void 0;
 const ok = (res, data) => {
     return res.status(200).send({
         success: true,
@@ -50,3 +50,11 @@ const userError = (res, error) => {
     });
 };
 exports.userError = userError;
+const Failed = (res, error) => {
+    return res.status(409).send({
+        success: false,
+        status: 409,
+        message: error,
+    });
+};
+exports.Failed = Failed;

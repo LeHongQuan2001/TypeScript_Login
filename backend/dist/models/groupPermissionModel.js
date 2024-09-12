@@ -13,9 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-const rolePermissionModel_1 = __importDefault(require("./rolePermissionModel"));
-const groupPermissionModel_1 = __importDefault(require("./groupPermissionModel"));
-let Permission = class Permission extends sequelize_typescript_1.Model {
+const permissionModel_1 = __importDefault(require("./permissionModel")); // Chú ý: tên file nên là permissionModel.ts
+let GroupPermission = class GroupPermission extends sequelize_typescript_1.Model {
 };
 __decorate([
     (0, sequelize_typescript_1.Column)({
@@ -24,34 +23,22 @@ __decorate([
         primaryKey: true,
     }),
     __metadata("design:type", Number)
-], Permission.prototype, "id", void 0);
+], GroupPermission.prototype, "id", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
         allowNull: false,
     }),
     __metadata("design:type", String)
-], Permission.prototype, "name", void 0);
+], GroupPermission.prototype, "name", void 0);
 __decorate([
-    (0, sequelize_typescript_1.ForeignKey)(() => groupPermissionModel_1.default),
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.INTEGER,
-        allowNull: false,
-    }),
-    __metadata("design:type", Number)
-], Permission.prototype, "groupId", void 0);
-__decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => groupPermissionModel_1.default),
-    __metadata("design:type", groupPermissionModel_1.default)
-], Permission.prototype, "groupPermission", void 0);
-__decorate([
-    (0, sequelize_typescript_1.HasMany)(() => rolePermissionModel_1.default),
+    (0, sequelize_typescript_1.HasMany)(() => permissionModel_1.default),
     __metadata("design:type", Array)
-], Permission.prototype, "rolePermission", void 0);
-Permission = __decorate([
+], GroupPermission.prototype, "permissions", void 0);
+GroupPermission = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: 'permissions',
+        tableName: 'grouppermissions', // Chỉnh sửa cho đúng tên bảng
         timestamps: true,
     })
-], Permission);
-exports.default = Permission;
+], GroupPermission);
+exports.default = GroupPermission;

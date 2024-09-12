@@ -3,9 +3,10 @@ import config from './config';
 import User from '../models/userModel';
 import { Config, DBConfig } from './config';
 import Role from '../models/roleModel';
-import UserPermission from '../models/groupPermissionModel';
 import Permission from '../models/permissionModel';
 import Language from '../models/languageModel';
+import GroupPermission from '../models/groupPermissionModel';
+import RolePermission from '../models/rolePermissionModel';
 
 const environment: keyof Config = (process.env.DATABASE_ENV as keyof Config) || "development";
 const dbConfig: DBConfig = config[environment] as DBConfig;
@@ -18,7 +19,7 @@ const sequelize = new Sequelize({
   database: dbConfig.database,
   port: dbConfig.port,
   dialectOptions: dbConfig.dialectOptions,
-  models: [ User, Role, UserPermission, Permission, Language ],
+  models: [ User, Role, Permission, Language, GroupPermission, RolePermission ],
   logging: true,
 });
 
