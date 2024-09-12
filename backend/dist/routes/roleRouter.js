@@ -10,4 +10,5 @@ const router = express_1.default.Router();
 router.use(authenticateToken_1.default);
 router.get('', roleController_1.index);
 router.get('/:id', roleController_1.getRole);
+router.post('/create', roleController_1.createRole);
 exports.default = router;

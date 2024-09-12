@@ -79,7 +79,6 @@ export const getUserId = async (id: string): Promise<any> => {
 };
 
 export const createNewUser = async (user: any): Promise<any> => {
-  console.log('user', user);
   const existingUserByEmail = await User.findOne({ where: { email: user.email } });
   if (existingUserByEmail) {
     throw new Error('Email already exists');

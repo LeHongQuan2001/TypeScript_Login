@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRoleId = exports.list = void 0;
+exports.createInfoRole = exports.getRoleId = exports.list = void 0;
 const roleModel_1 = __importDefault(require("../models/roleModel"));
 const rolePermissionModel_1 = __importDefault(require("../models/rolePermissionModel"));
 const permissionModel_1 = __importDefault(require("../models/permissionModel"));
@@ -96,3 +96,26 @@ const getRoleId = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return { role };
 });
 exports.getRoleId = getRoleId;
+const createInfoRole = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log('Received data:', data);
+        const name = data.name;
+        const permissionIds = data.permissionIds || [];
+        // Create a new role
+        const newRole = yield roleModel_1.default.create({ name });
+        console.log('New role created:', newRole);
+        // If permissionIds exist, associate them with the role
+        if (permissionIds.length > 0) {
+            for (const permissionId of permissionIds) {
+                // Create a role-permission association
+                yield rolePermissionModel_1.default.create({ roleId: newRole.id, permissionId });
+            }
+        }
+        return { newRole };
+    }
+    catch (error) {
+        console.error('Error creating role or assigning permissions:', error);
+        throw error;
+    }
+});
+exports.createInfoRole = createInfoRole;

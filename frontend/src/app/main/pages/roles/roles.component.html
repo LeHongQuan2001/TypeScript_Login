@@ -38,7 +38,7 @@
             </div>
             <div class="d-flex justify-content-between align-items-end">
               <div class="role-heading">
-                <h5 class="mb-1">{{ role.name === 'admin' ? 'Administrator' : 'Users' }}</h5>
+                <h5 class="mb-1">{{ role.name === 'admin' ? 'Administrator' : role.name === 'user' ? 'Users' : role.name }}</h5>
                 <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editRoleModal" class="role-edit-modal"
                   (click)="onEditRole(role)">
                   <span>Edit Role</span>
@@ -62,11 +62,11 @@
               <p>Set role permissions</p>
             </div>
             <!-- Add role form -->
-            <form id="addRoleForm" class="row g-6" (ngSubmit)="onAddRoleSubmit()" #roleForm="ngForm">
+            <form id="addRoleForm" class="row g-6" (ngSubmit)="onAddRoleSubmit()" #addRoleForm="ngForm">
               <div class="col-12">
-                <label class="form-label" for="modalRoleName">Role Name</label>
+                <label class="form-label" for="modalRoleName">Role Name <span class="text-danger">*</span></label>
                 <input type="text" id="modalRoleName" name="roleName" class="form-control"
-                  placeholder="Enter a role name" [(ngModel)]="newRole.name" required>
+                  placeholder="Enter a role name" ngModel required>
               </div>
               <div class="col-12">
                 <h5 class="mb-6">Role Permissions</h5>
@@ -100,7 +100,6 @@
                         </td>
                       </tr>
                     </tbody>
-
                   </table>
                 </div>
               </div>
@@ -127,11 +126,14 @@
               <p>Set role permissions</p>
             </div>
             <!-- Edit role form -->
-            <form id="editRoleForm" class="row g-6" (ngSubmit)="onEditRoleSubmit()" #roleForm="ngForm">
+            <form id="editRoleForm" class="row g-6" (ngSubmit)="onEditRoleSubmit()" #editRoleForm="ngForm">
               <div class="col-12">
-                <label class="form-label" for="modalRoleName">Role Name</label>
+                <label class="form-label" for="modalRoleName">Role Name <span class="text-danger">*</span></label>
                 <input type="text" id="modalRoleName" name="roleName" class="form-control"
-                  placeholder="Enter a role name" [(ngModel)]="selectedRole.name" required>
+                  placeholder="Enter a role name" [(ngModel)]="selectedRole.name" #roleName="ngModel" required>
+                  <div *ngIf="roleName.invalid && roleName.touched" class="text-danger">
+                    Role Name is required.
+                  </div>
               </div>
               <div class="col-12">
                 <h5 class="mb-6">Role Permissions</h5>
@@ -167,6 +169,7 @@
               </div>
               <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary me-3">Submit</button>
+                <button type="button" class="btn btn-danger me-3" (click)="onDeleteRole()">Delete</button>
                 <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
               </div>
             </form>
@@ -176,6 +179,27 @@
       </div>
     </div>
     <!--/ Edit Role Modal -->
+
+    <!-- Delete Role Modal -->
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteRoleModal" tabindex="-1" aria-labelledby="deleteRoleModalLabel" aria-hidden="true" #deleteRoleModal>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteRoleModalLabel">Confirm Role Deletion</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete the role: {{ selectedRole?.name }}?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger" (click)="confirmDeleteRole()">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Delete Role Modal -->
   </div>
   <!-- / Content -->
   <div class="content-backdrop fade"></div>

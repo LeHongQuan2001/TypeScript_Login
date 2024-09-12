@@ -4,7 +4,7 @@ import User from './userModel';
 
 @Table({
   tableName: 'roles',
-  timestamps: true,
+  timestamps: false,
 })
 class Role extends Model {
   @Column({

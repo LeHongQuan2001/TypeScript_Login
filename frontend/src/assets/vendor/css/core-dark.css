@@ -5741,7 +5741,7 @@ textarea.form-control-lg {
 
 .modal.fade .modal-dialog {
     transition: transform .15s ease-out;
-    transform: translateY(-100px) scale(0.8)
+    /* transform: translateY(-100px) scale(0.8) */
 }
 
 @media(prefers-reduced-motion: reduce) {
@@ -5751,7 +5751,7 @@ textarea.form-control-lg {
 }
 
 .modal.show .modal-dialog {
-    transform: translateY(0) scale(1)
+    /* transform: translateY(0) scale(1) */
 }
 
 .modal.modal-static .modal-dialog {
@@ -5874,7 +5874,7 @@ textarea.form-control-lg {
 
 @media(min-width: 992px) {
     .modal-lg,.modal-xl {
-        --bs-modal-width: 50rem
+        /* --bs-modal-width: 50rem */
     }
 }
 
