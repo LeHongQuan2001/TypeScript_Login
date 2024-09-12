@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRole = exports.index = void 0;
+exports.createRole = exports.getRole = exports.index = void 0;
 // import { list, createInfoRole, updateInfoRole, deleteInfoRole } from "../services/roleService";
 const roleService_1 = require("../services/roleService");
 const responseUtils_1 = require("../utils/responseUtils");
@@ -25,11 +25,12 @@ const getRole = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, responseUtils_1.ok)(res, user);
 });
 exports.getRole = getRole;
-// export const createRole = async (req: Request, res: Response): Promise<void> => {
-//     const Role = req.body;
-//     const result = await createInfoRole(Role);
-//     ok(res, result);            
-// };
+const createRole = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = req.body;
+    const result = yield (0, roleService_1.createInfoRole)(data);
+    (0, responseUtils_1.ok)(res, result);
+});
+exports.createRole = createRole;
 // export const updateRole = async (req: Request, res: Response): Promise<void> => {
 //     const { id } = req.params;
 //     const Role = req.body;
