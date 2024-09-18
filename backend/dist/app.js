@@ -6,13 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
-const languageRouter_1 = __importDefault(require("./routes/languageRouter"));
+const languageRoutes_1 = __importDefault(require("./routes/languageRoutes"));
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
-const roleRouter_1 = __importDefault(require("./routes/roleRouter"));
-const permissionRouter_1 = __importDefault(require("./routes/permissionRouter"));
+const roleRoutes_1 = __importDefault(require("./routes/roleRoutes"));
+const permissionRoutes_1 = __importDefault(require("./routes/permissionRoutes"));
 const app = (0, express_1.default)();
 const swaggerOptions = {
     swaggerDefinition: {
@@ -37,7 +37,7 @@ app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.de
 app.use(express_1.default.static(path_1.default.join(__dirname, 'public/uploads')));
 app.use('/api/auth', authRoutes_1.default);
 app.use('/users', userRoutes_1.default);
-app.use('/languages', languageRouter_1.default);
-app.use('/roles', roleRouter_1.default);
-app.use('/permissions', permissionRouter_1.default);
+app.use('/languages', languageRoutes_1.default);
+app.use('/roles', roleRoutes_1.default);
+app.use('/permissions', permissionRoutes_1.default);
 app.listen(5000, () => console.log('Server running on port 5000'));
