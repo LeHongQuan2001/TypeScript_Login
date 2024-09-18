@@ -43,7 +43,7 @@ __decorate([
 Role = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: 'roles',
-        timestamps: true,
+        timestamps: false,
     })
 ], Role);
 exports.default = Role;

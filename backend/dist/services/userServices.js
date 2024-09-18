@@ -64,7 +64,6 @@ const getUserId = (id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getUserId = getUserId;
 const createNewUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('user', user);
     const existingUserByEmail = yield userModel_1.default.findOne({ where: { email: user.email } });
     if (existingUserByEmail) {
         throw new Error('Email already exists');

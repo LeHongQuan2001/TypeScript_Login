@@ -2,13 +2,21 @@
   <div class="content">
     <div class="page-list">
       <div class="card">
-        <div class="page-header flex justify-content-between align-items-center p-24 border-bottom">
+        <div
+          class="page-header flex justify-content-between align-items-center p-24 border-bottom"
+        >
           <div class="title flex direction-col">
             <h2 class="my-0">{{ "labels.users" | translate }}</h2>
           </div>
-          <button class="btn btn-secondary delete-item btn-danger me-3 ms-auto" tabindex="0"
-            aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasAddUser" (click)="onClickDeleteAll()">
+          <button
+            class="btn btn-secondary delete-item btn-danger me-3 ms-auto"
+            tabindex="0"
+            aria-controls="DataTables_Table_0"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasAddUser"
+            (click)="onClickDeleteAll()"
+          >
             <span>
               <i class="fa-regular fa-trash-can"></i>
               <span class="d-none d-sm-inline-block ms-2">
@@ -16,13 +24,20 @@
               </span>
             </span>
           </button>
-          <button class="btn btn-secondary add-item btn-primary" tabindex="0" aria-controls="DataTables_Table_0"
-            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser" routerLink="/users/add">
+          <button
+            class="btn btn-secondary add-item btn-primary"
+            tabindex="0"
+            aria-controls="DataTables_Table_0"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasAddUser"
+            routerLink="/users/add"
+          >
             <span>
               <i class="fa-solid fa-plus"></i>
               <span class="d-none d-sm-inline-block ms-2">{{
                 "buttons.add-new-user" | translate
-                }}</span>
+              }}</span>
             </span>
           </button>
         </div>
@@ -31,29 +46,54 @@
             <div class="col d-flex justify-content-between align-items-center">
               <!-- Search Input -->
               <div class="col-md-4 search-input ps-re d-flex">
-                <a class="ps-ab p-8-11 fs-18 fl-r opacity-08 cursor-pointer" (click)="onSubmitSearch(search)">
+                <a
+                  class="ps-ab p-8-11 fs-18 fl-r opacity-08 cursor-pointer"
+                  (click)="onSubmitSearch(search)"
+                >
                   <i class="fa-solid fa-magnifying-glass bg-navbar-theme"></i>
                 </a>
-                <input class="form-control ms-2" type="text" placeholder="{{
+                <input
+                  class="form-control ms-2"
+                  type="text"
+                  placeholder="{{
                     'labels.search' | translate
                   }} username, email {{ 'labels.or' | translate }} {{
                     'labels.phone' | translate
-                  }}" name="search" ngModel [(ngModel)]="search" (keyup.enter)="onSubmitSearch(search)" />
+                  }}"
+                  name="search"
+                  ngModel
+                  [(ngModel)]="search"
+                  (keyup.enter)="onSubmitSearch(search)"
+                />
               </div>
 
               <!-- Select Boxes -->
               <div class="d-flex">
-                <div class="dataTables_length me-2" id="DataTables_Table_0_role">
-                  <select name="userRoleFilter" aria-controls="DataTables_Table_0" class="form-select"
-                    (change)="handleRoleFilter($event)">
+                <div
+                  class="dataTables_length me-2"
+                  id="DataTables_Table_0_role"
+                >
+                  <select
+                    name="userRoleFilter"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleRoleFilter($event)"
+                  >
                     <option value="" selected>All Roles</option>
                     <option value="1">Admin</option>
                     <option value="2">User</option>
                   </select>
                 </div>
-                <div class="dataTables_length me-2" id="DataTables_Table_0_status">
-                  <select name="userStatusFilter" aria-controls="DataTables_Table_0" class="form-select"
-                    (change)="handleStatusFilter($event)">
+                <div
+                  class="dataTables_length me-2"
+                  id="DataTables_Table_0_status"
+                >
+                  <select
+                    name="userStatusFilter"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleStatusFilter($event)"
+                  >
                     <option value="" selected>All Statuses</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -62,8 +102,12 @@
                 </div>
 
                 <div class="dataTables_length" id="DataTables_Table_0_length">
-                  <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"
-                    (change)="handleItemsPerPage($event)">
+                  <select
+                    name="DataTables_Table_0_length"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleItemsPerPage($event)"
+                  >
                     <option value="10" selected>10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -76,13 +120,24 @@
         </div>
 
         <div class="table-responsive text-nowrap">
-          <table class="table table-striped border-bottom datatables-users dataTable no-footer dtr-column">
+          <table
+            class="table table-striped border-bottom datatables-users dataTable no-footer dtr-column"
+          >
             <thead>
               <tr>
-                <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1"
-                  style="width: 18px" data-col="1">
-                  <input id="select-all" type="checkbox" class="form-check-input"
-                    (change)="handleCheckBoxAll($event)" />
+                <th
+                  class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all"
+                  rowspan="1"
+                  colspan="1"
+                  style="width: 18px"
+                  data-col="1"
+                >
+                  <input
+                    id="select-all"
+                    type="checkbox"
+                    class="form-check-input"
+                    (change)="handleCheckBoxAll($event)"
+                  />
                 </th>
                 <th>ID</th>
                 <th>{{ "labels.avatar" | translate }}</th>
@@ -95,17 +150,28 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              <tr *ngFor="let item of items; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
+              <tr
+                *ngFor="let item of items; let even = even; let odd = odd"
+                [ngClass]="{ odd: odd, even: even }"
+              >
                 <td class="dt-checkboxes-cell">
-                  <input type="checkbox" class="dt-checkboxes form-check-input"
-                    (change)="handleCheckBox($event, item)" />
+                  <input
+                    type="checkbox"
+                    class="dt-checkboxes form-check-input"
+                    (change)="handleCheckBox($event, item)"
+                  />
                 </td>
                 <td>#{{ item.id }}</td>
                 <td>
                   <div class="avatar-wrapper">
                     <div class="avatar avatar-sm me-3">
-                      <img [src]="item.avatar" routerLink="/users/view-detail/{{ item.id }}" (click)="initItem(item)"
-                        alt="Avatar" class="rounded-circle" />
+                      <img
+                        [src]="item.avatar"
+                        routerLink="/users/view-detail/{{ item.id }}"
+                        (click)="initItem(item)"
+                        alt="Avatar"
+                        class="rounded-circle"
+                      />
                     </div>
                   </div>
                 </td>
@@ -114,47 +180,65 @@
                 <td>{{ item.phone }}</td>
                 <td>
                   {{
-                  item.role.name === "admin"
-                  ? ("common.admin" | translate)
-                  : ("common.user" | translate)
+                    item.role.name === "admin"
+                      ? ("common.admin" | translate)
+                      : ("common.user" | translate)
                   }}
                 </td>
                 <td>
-                  <span class="badge me-1" [ngClass]="{
+                  <span
+                    class="badge me-1"
+                    [ngClass]="{
                       'bg-label-success': item.status === 'active',
                       'bg-label-secondary': item.status === 'inactive'
-                    }">
+                    }"
+                  >
                     {{
-                    item.status === "active"
-                    ? ("labels.active" | translate)
-                    : ("labels.inactive" | translate)
+                      item.status === "active"
+                        ? ("labels.active" | translate)
+                        : ("labels.inactive" | translate)
                     }}
                   </span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center">
-                    <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      <i class="bx bx-dots-vertical-rounded menu-icon tf-icons"></i>
+                    <button
+                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i
+                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
+                      ></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a routerLink="/users/view-detail/{{ item.id }}" class="dropdown-item" (click)="initItem(item)">
+                      <a
+                        routerLink="/users/view-detail/{{ item.id }}"
+                        class="dropdown-item"
+                        (click)="initItem(item)"
+                      >
                         <i class="fa-regular fa-eye"></i>
                         <span class="ms-1">{{
                           "buttons.details" | translate
-                          }}</span>
+                        }}</span>
                       </a>
                       <div class="dropdown-divider"></div>
-                      <a href="javascript:;" class="dropdown-item text-primary delete-record align-items-center fs-15"
-                        (click)="toggleEdit(); initItem(item)">
+                      <a
+                        href="javascript:;"
+                        class="dropdown-item text-primary delete-record align-items-center fs-15"
+                        (click)="toggleEdit(); initItem(item)"
+                      >
                         <i class="fa-regular fa-pen-to-square"></i>
                         <span class="ms-1">
                           {{ "buttons.edit" | translate }}
                         </span>
                       </a>
                       <div class="dropdown-divider"></div>
-                      <a href="javascript:;" class="dropdown-item text-danger delete-record align-items-center fs-15"
-                        (click)="toggleDelete(); onClickDelete(item)">
+                      <a
+                        href="javascript:;"
+                        class="dropdown-item text-danger delete-record align-items-center fs-15"
+                        (click)="toggleDelete(); onClickDelete(item)"
+                      >
                         <i class="fa-regular fa-trash-can"></i>
                         <span class="ms-1">
                           {{ "buttons.delete" | translate }}
@@ -164,9 +248,12 @@
                   </div>
                 </td>
               </tr>
-              <tr class="odd text-center" [ngStyle]="{
+              <tr
+                class="odd text-center"
+                [ngStyle]="{
                   display: items.length === 0 ? 'table-row' : 'none'
-                }">
+                }"
+              >
                 <td valign="top" colspan="9" class="dataTables_empty">
                   No matching records found
                 </td>
@@ -174,19 +261,42 @@
             </tbody>
           </table>
         </div>
-        <app-pagination [search]="search" [items]="items" [limit]="limit" [pages]="pages" [currentPage]="currentPage"
-          (currentPageChange)="onPageChange($event)"></app-pagination>
+        <app-pagination
+          [search]="search"
+          [items]="items"
+          [limit]="limit"
+          [pages]="pages"
+          [currentPage]="currentPage"
+          (currentPageChange)="onPageChange($event)"
+        ></app-pagination>
       </div>
     </div>
   </div>
   <app-add-user [isShow]="isShow" (close)="toggleShow()"></app-add-user>
-  <app-edit-user [isShowEdit]="isShowEdit" (close)="toggleEdit()" [item]="item"></app-edit-user>
+  <app-edit-user
+    [isShowEdit]="isShowEdit"
+    (close)="toggleEdit()"
+    [item]="item"
+  ></app-edit-user>
 </div>
 
 <!-- delete -->
-<app-delete [isDelete]="isDelete" (close)="toggleDelete()" (isDeleteFailed)="toggleDeleteFailed()"
-  (isDeleteSuccess)="toggleDeleteSuccess()" [checkBoxs]="checkBoxs" [idDelete]="idDelete" [url]="url"></app-delete>
+<app-delete
+  [isDelete]="isDelete"
+  (close)="toggleDelete()"
+  (isDeleteFailed)="toggleDeleteFailed()"
+  (isDeleteSuccess)="toggleDeleteSuccess()"
+  [checkBoxs]="checkBoxs"
+  [idDelete]="idDelete"
+  [url]="url"
+></app-delete>
 
-<app-delete-failed [isDeleteFailed]="isDeleteFailed" (close)="toggleDeleteFailed()"></app-delete-failed>
+<app-delete-failed
+  [isDeleteFailed]="isDeleteFailed"
+  (close)="toggleDeleteFailed()"
+></app-delete-failed>
 
-<app-delete-success [isDeleteSuccess]="isDeleteSuccess" (close)="toggleDeleteSuccess()"></app-delete-success>
+<app-delete-success
+  [isDeleteSuccess]="isDeleteSuccess"
+  (close)="toggleDeleteSuccess()"
+></app-delete-success>

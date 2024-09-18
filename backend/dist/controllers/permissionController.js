@@ -9,29 +9,44 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.index = void 0;
+exports.deletePerm = exports.updatePerm = exports.createPerm = exports.groupPerm = exports.getId = exports.index = void 0;
 const permissionService_1 = require("../services/permissionService");
 const responseUtils_1 = require("../utils/responseUtils");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const Permissions = yield (0, permissionService_1.list)();
+    const { page, limit, search, role, status } = req.query;
+    const Permissions = yield (0, permissionService_1.list)(page, limit, search, role, status);
     (0, responseUtils_1.ok)(res, Permissions);
 });
 exports.index = index;
-// export const createRole = async (req: Request, res: Response): Promise<void> => {
-//     const Role = req.body;
-//     const result = await createInfoRole(Role);
-//     ok(res, result);            
-// };
-// export const updateRole = async (req: Request, res: Response): Promise<void> => {
-//     const { id } = req.params;
-//     const Role = req.body;
-//     const result = await updateInfoRole(id, Role);
-//     ok(res, result);
-// };
-// export const deleteRole = async (req: Request, res: Response): Promise<void> => {
-//     const { ids } = req.body;
-//     await deleteInfoRole(ids);
-//     ok(res, {
-//         message: "Roles deleted successfully",
-//       });
-// }
+const getId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const Permissions = yield (0, permissionService_1.getIdPerm)(id);
+    (0, responseUtils_1.ok)(res, Permissions);
+});
+exports.getId = getId;
+const groupPerm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield (0, permissionService_1.groupPermData)();
+    (0, responseUtils_1.ok)(res, result);
+});
+exports.groupPerm = groupPerm;
+const createPerm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = req.body;
+    const result = yield (0, permissionService_1.createInfoPerm)(data);
+    (0, responseUtils_1.ok)(res, result);
+});
+exports.createPerm = createPerm;
+const updatePerm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const data = req.body;
+    const result = yield (0, permissionService_1.updateInfoPerm)(id, data);
+    (0, responseUtils_1.ok)(res, result);
+});
+exports.updatePerm = updatePerm;
+const deletePerm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ids } = req.body;
+    yield (0, permissionService_1.deleteInfoPerm)(ids);
+    (0, responseUtils_1.ok)(res, {
+        message: "Permissions deleted successfully",
+    });
+});
+exports.deletePerm = deletePerm;

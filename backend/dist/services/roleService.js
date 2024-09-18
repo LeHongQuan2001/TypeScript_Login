@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createInfoRole = exports.getRoleId = exports.list = void 0;
+exports.deleteInfoRole = exports.updateInfoRole = exports.createInfoRole = exports.getRoleId = exports.list = void 0;
 const roleModel_1 = __importDefault(require("../models/roleModel"));
 const rolePermissionModel_1 = __importDefault(require("../models/rolePermissionModel"));
 const permissionModel_1 = __importDefault(require("../models/permissionModel"));
@@ -46,7 +46,8 @@ const list = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (pa
                 as: 'users',
                 attributes: ["id", "username", "avatar"]
             }
-        ]
+        ],
+        order: [['id', 'ASC']],
     });
     const roleIds = roles.map(role => role.id);
     const userCounts = yield userModel_1.default.findAll({
@@ -98,16 +99,15 @@ const getRoleId = (id) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getRoleId = getRoleId;
 const createInfoRole = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log('Received data:', data);
         const name = data.name;
         const permissionIds = data.permissionIds || [];
-        // Create a new role
         const newRole = yield roleModel_1.default.create({ name });
-        console.log('New role created:', newRole);
-        // If permissionIds exist, associate them with the role
         if (permissionIds.length > 0) {
             for (const permissionId of permissionIds) {
-                // Create a role-permission association
+                const permission = yield permissionModel_1.default.findByPk(permissionId);
+                if (!permission) {
+                    throw new Error(`Permission with ID ${permissionId} not found`);
+                }
                 yield rolePermissionModel_1.default.create({ roleId: newRole.id, permissionId });
             }
         }
@@ -119,3 +119,41 @@ const createInfoRole = (data) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.createInfoRole = createInfoRole;
+const updateInfoRole = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const name = data.name;
+        const permissionIds = data.permissionIds || [];
+        const role = yield roleModel_1.default.findByPk(id);
+        if (!role) {
+            throw new Error(`Role with ID ${id} not found`);
+        }
+        role.name = name;
+        yield role.save();
+        yield rolePermissionModel_1.default.destroy({ where: { roleId: id } });
+        for (const permissionId of permissionIds) {
+            const permission = yield permissionModel_1.default.findByPk(permissionId);
+            if (!permission) {
+                throw new Error(`Permission with ID ${permissionId} not found`);
+            }
+            yield rolePermissionModel_1.default.create({ roleId: id, permissionId });
+        }
+        return { role };
+    }
+    catch (error) {
+        console.error('Error updating role or assigning permissions:', error);
+        throw error;
+    }
+});
+exports.updateInfoRole = updateInfoRole;
+const deleteInfoRole = (ids) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield roleModel_1.default.destroy({ where: { id: ids } });
+        yield rolePermissionModel_1.default.destroy({ where: { roleId: ids } });
+        return { message: 'Roles deleted successfully' };
+    }
+    catch (error) {
+        console.error('Error deleting roles:', error);
+        throw error;
+    }
+});
+exports.deleteInfoRole = deleteInfoRole;
