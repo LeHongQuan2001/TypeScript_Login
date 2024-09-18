@@ -18,8 +18,8 @@ export const getRole = async (req: Request, res: Response): Promise<void> => {
 export const createRole = async (req: Request, res: Response): Promise<void> => {
     try {
       const data = req.body;
-    const result = await createInfoRole(data);
-    ok(res, result);   
+      const result = await createInfoRole(data);
+      ok(res, result);   
     } catch (error) {
         console.log(error)
     }

@@ -54,8 +54,8 @@ export class RolesComponent implements OnInit {
   }
 
   loadPermissions(callback: () => void): void {
-    this.http.getItems("/permissions", '', 0, 0, '', '').subscribe((response: any) => {
-      const permissionsData = response.data;
+    this.http.getItems("/permissions", '', 1, 1000, '', '').subscribe((response: any) => {
+      const permissionsData = response.data.result;
       const groupedPermissions: { [key: number]: Permission[] } = {};
       permissionsData.forEach((permission: Permission) => {
         const groupId = permission.groupPermission.id;
@@ -155,7 +155,7 @@ export class RolesComponent implements OnInit {
           setTimeout(() => {
             this.toastService.show({template: data["message"], classname: "toast--success", delay: 4000});
             this.closeModal('addRoleModal');
-            window.location.reload();
+            this.loadRoles();
           }, 300);
         },
         error: (error: any) => {
@@ -188,7 +188,7 @@ export class RolesComponent implements OnInit {
           setTimeout(() => {
             this.toastService.show({template: data["message"], classname: "toast--success", delay: 4000});
             this.closeModal('editRoleModal');
-            window.location.reload();
+            this.loadRoles();
           }, 300);
         },
         error: (error: any) => {
@@ -215,6 +215,7 @@ export class RolesComponent implements OnInit {
   }
 
   onDeleteRole(): void {
+    this.closeModal('editRoleModal');
     const modalElement = document.getElementById('deleteRoleModal');
     if (modalElement) {
       const bootstrapModal = (window as any).bootstrap.Modal.getInstance(modalElement);
@@ -236,7 +237,7 @@ export class RolesComponent implements OnInit {
         setTimeout(() => {
           this.toastService.show({ template: data["message"], classname: "toast--success", delay: 4000 });
           this.closeModal('deleteRoleModal');
-          window.location.reload();
+          this.loadRoles();
         }, 300);
       },
       error: (error: any) => {

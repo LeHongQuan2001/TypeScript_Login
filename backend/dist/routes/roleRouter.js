@@ -11,4 +11,6 @@ router.use(authenticateToken_1.default);
 router.get('', roleController_1.index);
 router.get('/:id', roleController_1.getRole);
 router.post('/create', roleController_1.createRole);
+router.put('/update/:id', roleController_1.updateRole);
+router.delete('/delete/', roleController_1.deleteRole);
 exports.default = router;

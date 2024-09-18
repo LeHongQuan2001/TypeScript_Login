@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createRole = exports.getRole = exports.index = void 0;
+exports.deleteRole = exports.updateRole = exports.createRole = exports.getRole = exports.index = void 0;
 // import { list, createInfoRole, updateInfoRole, deleteInfoRole } from "../services/roleService";
 const roleService_1 = require("../services/roleService");
 const responseUtils_1 = require("../utils/responseUtils");
@@ -26,21 +26,33 @@ const getRole = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getRole = getRole;
 const createRole = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = req.body;
-    const result = yield (0, roleService_1.createInfoRole)(data);
-    (0, responseUtils_1.ok)(res, result);
+    try {
+        const data = req.body;
+        const result = yield (0, roleService_1.createInfoRole)(data);
+        (0, responseUtils_1.ok)(res, result);
+    }
+    catch (error) {
+        console.log(error);
+    }
 });
 exports.createRole = createRole;
-// export const updateRole = async (req: Request, res: Response): Promise<void> => {
-//     const { id } = req.params;
-//     const Role = req.body;
-//     const result = await updateInfoRole(id, Role);
-//     ok(res, result);
-// };
-// export const deleteRole = async (req: Request, res: Response): Promise<void> => {
-//     const { ids } = req.body;
-//     await deleteInfoRole(ids);
-//     ok(res, {
-//         message: "Roles deleted successfully",
-//       });
-// }
+const updateRole = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const data = req.body;
+        const result = yield (0, roleService_1.updateInfoRole)(id, data);
+        (0, responseUtils_1.ok)(res, result);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.updateRole = updateRole;
+const deleteRole = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ids } = req.body;
+    yield (0, roleService_1.deleteInfoRole)(ids);
+    (0, responseUtils_1.ok)(res, {
+        message: "Roles deleted successfully",
+    });
+});
+exports.deleteRole = deleteRole;
