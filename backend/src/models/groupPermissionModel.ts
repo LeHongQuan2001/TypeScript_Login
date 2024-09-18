@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import Permission from './permissionModel'; // Chú ý: tên file nên là permissionModel.ts
+import Permission from './permissionModel';
 
 interface GroupPermissionAttributes {
   id?: number;
@@ -7,7 +7,7 @@ interface GroupPermissionAttributes {
 }
 
 @Table({
-  tableName: 'grouppermissions', // Chỉnh sửa cho đúng tên bảng
+  tableName: 'grouppermissions',
   timestamps: true,
 })
 class GroupPermission extends Model<GroupPermissionAttributes> implements GroupPermissionAttributes {

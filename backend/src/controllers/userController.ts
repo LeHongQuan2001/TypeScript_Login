@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { invalidated, ok, unauthorized } from "../utils/responseUtils";
 import { list, getUserId, createNewUser, updateInfoUser, deleteInfoUser } from "../services/userServices";
+import { IGetUserAuthInfoRequest } from "../types/express";
 
-export const index = async (req: Request, res: Response): Promise<void> => {
+export const index = async (req: IGetUserAuthInfoRequest, res: Response): Promise<void> => {
   try {
     const { page, limit, search, role, status } = req.query as {
       page?: string;
