@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
 const rolePermissionModel_1 = __importDefault(require("./rolePermissionModel"));
 const groupPermissionModel_1 = __importDefault(require("./groupPermissionModel"));
+const apiEndpointModel_1 = __importDefault(require("./apiEndpointModel"));
 let Permission = class Permission extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -33,6 +34,14 @@ __decorate([
     __metadata("design:type", String)
 ], Permission.prototype, "name", void 0);
 __decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => apiEndpointModel_1.default),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: false,
+    }),
+    __metadata("design:type", Number)
+], Permission.prototype, "apiId", void 0);
+__decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => groupPermissionModel_1.default),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
@@ -40,6 +49,10 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], Permission.prototype, "groupId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => apiEndpointModel_1.default),
+    __metadata("design:type", apiEndpointModel_1.default)
+], Permission.prototype, "apiEndpoint", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => groupPermissionModel_1.default),
     __metadata("design:type", groupPermissionModel_1.default)

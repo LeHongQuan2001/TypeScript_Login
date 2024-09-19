@@ -9,6 +9,7 @@ interface Permission {
   id: number;
   name: string;
   groupId: number;
+  apiEndpoint: any;
   rolePermission: any;
 }
 
@@ -23,6 +24,8 @@ export class PermissionsComponent {
   search: string = '';
   inputType: string = 'select';
   GroupPermissions: any[] = [];
+  ApiEndpoints: any[] = [];
+  Endpoints: any[] = [];
   selectedPermission: any = {};
 
   // pagination
@@ -32,12 +35,14 @@ export class PermissionsComponent {
 
   addPermissionForm = this.fb.group({
     permissionName: ['', Validators.required],
-    groupPermission: [''],
+    groupPermission: ['', Validators.required],
+    apiEndpoint: ['', Validators.required],
   });
 
   editPermissionForm: FormGroup = this.fb.group({
     editPermissionName: ['', Validators.required],
     groupPermission: ['', Validators.required],
+    editApiEndpoint: ['', Validators.required],
   });
 
   constructor(
@@ -51,6 +56,7 @@ export class PermissionsComponent {
   ngOnInit(): void {
     this.loadPermissions();
     this.loadGroupPermissions();
+    this.loadApiEndpoints();
   }
 
   handleItemsPerPage(event: Event): void {
@@ -82,15 +88,19 @@ export class PermissionsComponent {
       });
   }
 
-  onAddPermission(): void {}
+  onAddPermission(): void {
+    this.loadEndpoints();
+  }
 
   onEditPermission(permission: any): void {
     this.selectedPermission = { ...permission };
+    this.loadEndpoints();
 
     // Populate the form with selected permission data
     this.editPermissionForm.patchValue({
       editPermissionName: permission.name,
-      groupPermission: permission.groupPermission.id
+      groupPermission: permission.groupPermission.id,
+      editApiEndpoint: permission.apiEndpoint.id
     });
   }
 
@@ -101,6 +111,18 @@ export class PermissionsComponent {
   loadGroupPermissions(): void {
     this.http.getItems('/permissions/groupper', '', 0, 0, '', '').subscribe((response: any) => {
       this.GroupPermissions = response.data;
+    });
+  }
+
+  loadApiEndpoints(): void {
+    this.http.getItems('/apiendpoints', '', 0, 0, '', '').subscribe((response: any) => {
+      this.ApiEndpoints = response.data.apiEndpoints;
+    });
+  }
+
+  loadEndpoints(): void {
+    this.http.getItems('/apiendpoints/getlists', '', 0, 0, '', '').subscribe((response: any) => {
+      this.Endpoints = response.data.apiEndpoints;
     });
   }
 

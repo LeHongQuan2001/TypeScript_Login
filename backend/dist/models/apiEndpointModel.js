@@ -8,8 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
+const permissionModel_1 = __importDefault(require("./permissionModel"));
 let ApiEndpoint = class ApiEndpoint extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -41,6 +45,10 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], ApiEndpoint.prototype, "description", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => permissionModel_1.default),
+    __metadata("design:type", Array)
+], ApiEndpoint.prototype, "permissions", void 0);
 ApiEndpoint = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "apiendpoints",

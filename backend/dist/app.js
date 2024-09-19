@@ -13,6 +13,7 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const roleRoutes_1 = __importDefault(require("./routes/roleRoutes"));
 const permissionRoutes_1 = __importDefault(require("./routes/permissionRoutes"));
+const apiEndpointRoutes_1 = __importDefault(require("./routes/apiEndpointRoutes"));
 const app = (0, express_1.default)();
 const swaggerOptions = {
     swaggerDefinition: {
@@ -40,4 +41,5 @@ app.use('/users', userRoutes_1.default);
 app.use('/languages', languageRoutes_1.default);
 app.use('/roles', roleRoutes_1.default);
 app.use('/permissions', permissionRoutes_1.default);
+app.use('/apiEndpoints', apiEndpointRoutes_1.default);
 app.listen(5000, () => console.log('Server running on port 5000'));

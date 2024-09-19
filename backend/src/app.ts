@@ -8,6 +8,7 @@ import cors from 'cors';
 import path from 'path';
 import roleRoutes from './routes/roleRoutes';
 import permissionRoutes from './routes/permissionRoutes';
+import apiEndpointRoutes from './routes/apiEndpointRoutes';
 
 
 const app = express();
@@ -43,6 +44,7 @@ app.use('/users', userRoutes);
 app.use('/languages', languageRoutes);
 app.use('/roles', roleRoutes);
 app.use('/permissions', permissionRoutes);
+app.use('/apiEndpoints', apiEndpointRoutes);
 
 
 app.listen(5000, () => console.log('Server running on port 5000'));

@@ -1,3 +1,4 @@
+import ApiEndpoint from "../models/apiEndpointModel";
 import GroupPermission from "../models/groupPermissionModel";
 import Permission from "../models/permissionModel";
 import Role from "../models/roleModel";
@@ -34,6 +35,11 @@ export const list = async (
           },
         ],
       },
+      {
+        model: ApiEndpoint,
+        as: "apiEndpoint",
+        attributes: ["id", "description"],
+      }
     ],
     attributes: ["id", "name"],
   });
@@ -66,7 +72,7 @@ export const groupPermData = async (): Promise<any> => {
 
 export const createInfoPerm = async (data: any): Promise<any> => {
   try {
-    const { permissionName, groupPermission } = data;
+    const { permissionName, apiEndpoint, groupPermission } = data;
     let groupPerm = await GroupPermission.findOne({ where: { id: groupPermission } });
     if (!groupPerm) {
       groupPerm = await GroupPermission.create({ name: groupPermission });
@@ -76,6 +82,7 @@ export const createInfoPerm = async (data: any): Promise<any> => {
     if (!permission) {
       const result = await Permission.create({
         name: permissionName,
+        apiId: apiEndpoint,
         groupId: groupPerm.id
       });
 
@@ -92,13 +99,14 @@ export const createInfoPerm = async (data: any): Promise<any> => {
 
 export const updateInfoPerm = async (id: string, data: any): Promise<any> => {
   try {
-    const { editPermissionName, groupPermission } = data;
+    const { editPermissionName, editApiEndpoint, groupPermission } = data;
     const permission = await Permission.findByPk(id);
     if (!permission) {
       throw new Error("Permission not found");
     }
-    if (editPermissionName && groupPermission) {
+    if (editPermissionName && groupPermission && editApiEndpoint) {
       permission.name = editPermissionName;
+      permission.apiId = editApiEndpoint;
       const groupPerm = await GroupPermission.findByPk(groupPermission);
       if (!groupPerm) {
         throw new Error("Group permission not found");

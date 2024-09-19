@@ -46,6 +46,9 @@
                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;"
                   aria-label="Group Permission">
                   Group Permission</th>
+                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;"
+                  aria-label="Group Permission">
+                  Description</th>
                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 145px;" aria-label="Actions">Actions
                 </th>
               </tr>
@@ -69,6 +72,7 @@
                   </span>
                 </td>
                 <td><span class="text-nowrap">{{ item.groupPermission.name }}</span></td>
+                <td><span class="text-nowrap">{{ item.apiEndpoint.description }}</span></td>
                 <td>
                   <div class="d-flex align-items-center"><span class="text-nowrap">
                     <a href="javascript:;" class="btn btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -142,7 +146,7 @@
 
                 <div *ngIf="inputType === 'select'" class="position-relative">
                   <select id="modalGroupPermission" formControlName="groupPermission" class="form-select"
-                    aria-label="Default select example">
+                    aria-label="Default select example" style="min-height: 45px;">
                     <option value="" selected disabled>Select</option>
                     <option *ngFor="let GroupPerm of GroupPermissions" [value]="GroupPerm.id">
                       {{ GroupPerm.name }}
@@ -150,7 +154,18 @@
                   </select>
                 </div>
               </div>
-
+              <div class="col-12 mb-4">
+                <label class="form-label" for="modalApiEndpoint">Api Endpoint</label>
+                <div class="position-relative">
+                  <select id="modalApiEndpoint" formControlName="apiEndpoint" class="form-select"
+                    aria-label="Default select example" style="min-height: 45px;">
+                    <option value="" selected disabled>Select</option>
+                    <option *ngFor="let Endpoint of Endpoints" [value]="Endpoint.id">
+                      {{ Endpoint.description }} ({{ Endpoint.path }})
+                    </option>
+                  </select>
+                </div>
+              </div>
               <div class="col-12 text-center demo-vertical-spacing">
                 <button type="submit" class="btn btn-primary me-4">Create</button>
                 <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
@@ -186,6 +201,17 @@
                     {{ GroupPerm.name }}
                   </option>
                 </select>
+              </div>
+              <div class="col-12 mb-4 mt-4">
+                <label class="form-label" for="editApiEndpoint">Api Endpoint</label>
+                <div class="position-relative">
+                  <select id="editApiEndpoint" formControlName="editApiEndpoint" class="form-select" style="min-height: 45px;" >
+                    <option value="" selected disabled>Select</option>
+                    <option *ngFor="let Endpoint of Endpoints" [value]="Endpoint.id">
+                      {{ Endpoint.description }} ({{ Endpoint.path }})
+                    </option>
+                  </select>
+                </div>
               </div>
               <div class="col-sm-12 text-center mb-4 mt-5">
                 <button type="submit" class="btn btn-primary mt-1">Update</button>
