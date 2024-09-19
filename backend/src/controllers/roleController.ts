@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-// import { list, createInfoRole, updateInfoRole, deleteInfoRole } from "../services/roleService";
 import { list, getRoleId, createInfoRole, updateInfoRole, deleteInfoRole } from "../services/roleService";
 import { ok } from "../utils/responseUtils";
 

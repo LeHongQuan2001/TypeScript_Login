@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteRole = exports.updateRole = exports.createRole = exports.getRole = exports.index = void 0;
-// import { list, createInfoRole, updateInfoRole, deleteInfoRole } from "../services/roleService";
 const roleService_1 = require("../services/roleService");
 const responseUtils_1 = require("../utils/responseUtils");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

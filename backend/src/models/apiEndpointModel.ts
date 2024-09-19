@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import Permission from "./permissionModel";
 
 interface ApiEndpointAttributes {
   id?: number;
@@ -43,6 +44,9 @@ class ApiEndpoint extends Model<ApiEndpointAttributes> implements ApiEndpointAtt
     allowNull: false,
   })
   public description!: string;
+
+  @HasMany(() => Permission)
+  public permissions!: Permission[];
 
   public readonly createdAt!: Date;
 }

@@ -1,10 +1,12 @@
 import { Table, Column, Model, DataType, HasMany, BelongsTo, ForeignKey } from 'sequelize-typescript';
 import rolePermission from './rolePermissionModel';
 import groupPermission from './groupPermissionModel';
+import ApiEndpoint from './apiEndpointModel';
 
 interface PermissionAttributes {
   id?: number;
   name: string;
+  apiId: number;
   groupId: number;
 }
 
@@ -26,12 +28,22 @@ class Permission extends Model<PermissionAttributes> implements PermissionAttrib
   })
   public name!: string;
 
+  @ForeignKey(() => ApiEndpoint)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  public apiId!: number;
+
   @ForeignKey(() => groupPermission)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   public groupId!: number;
+
+  @BelongsTo(() => ApiEndpoint)
+  public apiEndpoint!: ApiEndpoint;
 
   @BelongsTo(() => groupPermission)
   public groupPermission!: groupPermission;

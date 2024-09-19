@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteInfoPerm = exports.updateInfoPerm = exports.createInfoPerm = exports.groupPermData = exports.getIdPerm = exports.list = void 0;
+const apiEndpointModel_1 = __importDefault(require("../models/apiEndpointModel"));
 const groupPermissionModel_1 = __importDefault(require("../models/groupPermissionModel"));
 const permissionModel_1 = __importDefault(require("../models/permissionModel"));
 const roleModel_1 = __importDefault(require("../models/roleModel"));
@@ -41,6 +42,11 @@ const list = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (pa
                     },
                 ],
             },
+            {
+                model: apiEndpointModel_1.default,
+                as: "apiEndpoint",
+                attributes: ["id", "description"],
+            }
         ],
         attributes: ["id", "name"],
     });
@@ -71,7 +77,7 @@ const groupPermData = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.groupPermData = groupPermData;
 const createInfoPerm = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { permissionName, groupPermission } = data;
+        const { permissionName, apiEndpoint, groupPermission } = data;
         let groupPerm = yield groupPermissionModel_1.default.findOne({ where: { id: groupPermission } });
         if (!groupPerm) {
             groupPerm = yield groupPermissionModel_1.default.create({ name: groupPermission });
@@ -80,6 +86,7 @@ const createInfoPerm = (data) => __awaiter(void 0, void 0, void 0, function* () 
         if (!permission) {
             const result = yield permissionModel_1.default.create({
                 name: permissionName,
+                apiId: apiEndpoint,
                 groupId: groupPerm.id
             });
             return result;
@@ -96,13 +103,14 @@ const createInfoPerm = (data) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createInfoPerm = createInfoPerm;
 const updateInfoPerm = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { editPermissionName, groupPermission } = data;
+        const { editPermissionName, editApiEndpoint, groupPermission } = data;
         const permission = yield permissionModel_1.default.findByPk(id);
         if (!permission) {
             throw new Error("Permission not found");
         }
-        if (editPermissionName && groupPermission) {
+        if (editPermissionName && groupPermission && editApiEndpoint) {
             permission.name = editPermissionName;
+            permission.apiId = editApiEndpoint;
             const groupPerm = yield groupPermissionModel_1.default.findByPk(groupPermission);
             if (!groupPerm) {
                 throw new Error("Group permission not found");
