@@ -2,3 +2,36 @@
     margin-bottom: 13px;
     width: 400px;
 }
+
+::ng-deep mat-form-field .mat-form-field-wrapper .mat-form-field-flex {
+    color: white !important;  /* Đổi màu chữ trong input */
+}
+
+::ng-deep mat-form-field .mat-input-element {
+    color: white !important; /* Đổi màu chữ của input */
+    caret-color: white !important; /* Đổi màu con trỏ nhấp nháy */
+}
+
+::ng-deep mat-form-field.mat-form-field-outline {
+    stroke: white !important; /* Đổi màu viền outline */
+}
+
+::ng-deep mat-form-field .mat-form-field-label {
+    color: white !important; /* Đổi màu nhãn (label) của trường */
+}
+
+::ng-deep mat-form-field.mat-focused .mat-form-field-label {
+    color: white !important; /* Đổi màu label khi input được chọn */
+}
+
+
+.custom-input {
+    color: white !important;
+    border-color: white !important;
+}
+
+.custom-input::placeholder {
+    color: white !important;
+}
+
+

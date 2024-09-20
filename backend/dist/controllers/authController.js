@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = void 0;
+exports.newPassword = exports.verifyEmail = exports.sendMail = exports.forgotPassword = exports.deleteOtp = exports.login = void 0;
 const authServices_1 = require("../services/authServices");
 const responseUtils_1 = require("../utils/responseUtils");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,3 +28,49 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+const deleteOtp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield (0, authServices_1.deleteOtpService)(req.body.otp);
+    (0, responseUtils_1.ok)(res, result);
+});
+exports.deleteOtp = deleteOtp;
+const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield (0, authServices_1.forgotPwService)(req.body.email);
+        (0, responseUtils_1.ok)(res, result);
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            (0, responseUtils_1.unauthorized)(res, error.message);
+        }
+        else {
+            (0, responseUtils_1.unauthorized)(res, 'Invalid credentials');
+        }
+    }
+});
+exports.forgotPassword = forgotPassword;
+const sendMail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield (0, authServices_1.sendMailService)(req.body);
+        (0, responseUtils_1.ok)(res, result);
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            (0, responseUtils_1.unauthorized)(res, error.message);
+        }
+        else {
+            (0, responseUtils_1.unauthorized)(res, 'Invalid credentials');
+        }
+    }
+});
+exports.sendMail = sendMail;
+const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { otp } = req.body;
+    const result = yield (0, authServices_1.verifyEmailService)(otp);
+    (0, responseUtils_1.ok)(res, result);
+});
+exports.verifyEmail = verifyEmail;
+const newPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield (0, authServices_1.newPasswordService)(req.body);
+    (0, responseUtils_1.ok)(res, result);
+});
+exports.newPassword = newPassword;

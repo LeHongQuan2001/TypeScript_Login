@@ -6,12 +6,12 @@
                     <div class="_lk_de">
                         <div class="form-03-main">
                             <div class="logo">
-                                <img src="assets/images/user.png">
+                                <img src="../assets/img/logo/logo.png">
                             </div>
 
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Email</mat-label>
-                                <input matInput type="email" formControlName="email" placeholder="Enter Email" aria-required="true" />
+                                <mat-label style="color: #ffffff; font-size: 19px;">Email</mat-label>
+                                <input matInput class="custom-input" type="email" formControlName="email" placeholder="Enter Email" aria-required="true" />
                                 <mat-error *ngIf="postForm.get('email')?.hasError('required')">
                                   Email is required
                                 </mat-error>
@@ -21,8 +21,8 @@
                             </mat-form-field>
 
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Password</mat-label>
-                                <input matInput [type]="passwordVisible ? 'text' : 'password'"
+                                <mat-label style="color: #ffffff; font-size: 19px;">Password</mat-label>
+                                <input class="custom-input" matInput [type]="passwordVisible ? 'text' : 'password'"
                                        formControlName="password" placeholder="Enter Password" aria-required="true">
                                 <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" tabindex="-1">
                                   <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
@@ -33,9 +33,9 @@
                             </mat-form-field>
 
                             <div class="form-group" style="padding-top: 0px;">
-                                <mat-checkbox formControlName="rememberMe" id="rememberMe">Remember me</mat-checkbox>
+                                <mat-checkbox formControlName="rememberMe" id="rememberMe"><span style="color: #d5d5e2;">Remember me</span></mat-checkbox>
                                 <mat-label style="float: right;">
-                                    <a href="#" style="line-height: 40px;text-decoration: none;">Forgot Password?</a>
+                                    <a href="/auth/forgot-password" style="line-height: 40px;text-decoration: none; color: #d5d5e2;">Forgot Password?</a>
                                 </mat-label>
                             </div>
 

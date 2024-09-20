@@ -39,7 +39,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(express.static(path.join(__dirname, 'public/uploads')));
 
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/languages', languageRoutes);
 app.use('/roles', roleRoutes);

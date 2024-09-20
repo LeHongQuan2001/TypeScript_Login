@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from '../../pages/login/password.validator'; // Adjust the import path as needed
 import { Router } from '@angular/router';
@@ -11,13 +11,14 @@ import * as CryptoJS from 'crypto-js';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
   postForm: FormGroup;
   passwordVisible = false;
   loginError: boolean = false;
 
-  private readonly secretKey = 'your-secret-key'; // Use a secure key
+  private readonly secretKey = '8016af4e64e81ae37679660bdc1de8a028c0edf7bdb234d7d31ff3ac14a3c589'; // Use a secure key
 
   constructor(
     private authService: AuthService,

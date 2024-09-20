@@ -71,6 +71,7 @@ export class MyProfilePageComponent implements OnInit {
     formData.append('address', form.address);
     formData.append('password', "password");
     formData.append('phone', form.phone);
+    formData.append('birthday', form.birthday);
 
     this.http.updateItem("users", formData, this.item.id).subscribe({
       next: (data: any) => {
