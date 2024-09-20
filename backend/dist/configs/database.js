@@ -12,6 +12,7 @@ const languageModel_1 = __importDefault(require("../models/languageModel"));
 const groupPermissionModel_1 = __importDefault(require("../models/groupPermissionModel"));
 const rolePermissionModel_1 = __importDefault(require("../models/rolePermissionModel"));
 const apiEndpointModel_1 = __importDefault(require("../models/apiEndpointModel"));
+const verificationModel_1 = __importDefault(require("../models/verificationModel"));
 const environment = process.env.DATABASE_ENV || "development";
 const dbConfig = config_1.default[environment];
 const sequelize = new sequelize_typescript_1.Sequelize({
@@ -22,7 +23,7 @@ const sequelize = new sequelize_typescript_1.Sequelize({
     database: dbConfig.database,
     port: dbConfig.port,
     dialectOptions: dbConfig.dialectOptions,
-    models: [userModel_1.default, roleModel_1.default, permissionModel_1.default, languageModel_1.default, groupPermissionModel_1.default, rolePermissionModel_1.default, apiEndpointModel_1.default],
+    models: [userModel_1.default, roleModel_1.default, permissionModel_1.default, languageModel_1.default, groupPermissionModel_1.default, rolePermissionModel_1.default, apiEndpointModel_1.default, verificationModel_1.default],
     logging: true,
 });
 exports.default = sequelize;

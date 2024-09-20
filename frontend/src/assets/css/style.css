@@ -53,7 +53,7 @@ textarea {
 }
 
 .form-02-main{
-  background:url(../images/bg-01.jpg);
+  background:#232333;
   background-size:cover;
   background-repeat:no-repeat;
   background-position:center;
@@ -74,17 +74,17 @@ textarea {
 .form-03-main{
   width:500px;
   display:block;
-  margin:20px auto;
-  padding:25px 50px 25px;
-  background:rgba(255,255,255,0.6);
+  margin:0px auto;
+  padding:1px 50px 1px 50px;
+  background:#2b2c40;
   border-radius:6px;
   z-index:9;
 }
 
 .logo{
   display:block;
-  margin:50px auto;
-  width:100px;
+  margin:10px 100px 95px 100px;
+  width:200px;
   height:100px;
 }
 

@@ -36,7 +36,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
 app.use(express_1.default.static(path_1.default.join(__dirname, 'public/uploads')));
-app.use('/api/auth', authRoutes_1.default);
+app.use('/auth', authRoutes_1.default);
 app.use('/users', userRoutes_1.default);
 app.use('/languages', languageRoutes_1.default);
 app.use('/roles', roleRoutes_1.default);

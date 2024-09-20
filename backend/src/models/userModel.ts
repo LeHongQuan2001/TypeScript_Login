@@ -1,6 +1,8 @@
 import { Table, Column, Model, ForeignKey, BelongsTo, DataType, HasMany, Index } from 'sequelize-typescript';
 import Role from './roleModel';
 import groupPermission from './rolePermissionModel';
+import Verification from './verificationModel';
+import { OneToOne } from 'typeorm';
 
 interface IUserAttributes {
   id?: number;
@@ -8,10 +10,12 @@ interface IUserAttributes {
   avatar?: string;
   username: string;
   email: string;
+  birthday?: Date;
   password: string;
   phone?: string;
   address?: string;
   role_id?: number;
+  otp?: string;
   status?: string;
 }
 
@@ -58,6 +62,12 @@ class User extends Model<IUserAttributes> implements IUserAttributes {
   public email!: string;
 
   @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  public birthday!: Date;
+
+  @Column({
     type: DataType.STRING,
     allowNull: false,
   })
@@ -86,10 +96,19 @@ class User extends Model<IUserAttributes> implements IUserAttributes {
     type: DataType.STRING,
     allowNull: true,
   })
+  public otp!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
   public status!: string;
 
   @BelongsTo(() => Role)
   public role!: Role;
+
+  @OneToOne(() => Verification)
+  public verification!: Verification;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
