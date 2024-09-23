@@ -52,7 +52,9 @@ export class LanguagePageComponent implements OnInit {
         this.pages = data["pages"]
       },
       error: (error) => {
-        // console.log(error)
+        if (error.status === 403) {
+          this.router.navigate(['/access-denied']);
+        };
       }
     })
   }

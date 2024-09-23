@@ -64,8 +64,10 @@ export class UserPageComponent implements OnInit {
         this.pages = data['pages'];
       },
       error: (error) => {
-        // handle error here
-      }
+       if (error.status === 403) {
+          this.router.navigate(['/access-denied']);
+        };
+      },
     });
   }
 

@@ -81,10 +81,17 @@ export class PermissionsComponent {
   }
 
   loadPermissions(): void {
-    this.http.getItems('/permissions', '', this.currentPage, this.limit, '', '').subscribe((response: any) => {
-        response = response.data;
-        this.items = response['result'].slice();
-        this.pages = response['pages'];
+    this.http.getItems('/permissions', '', this.currentPage, this.limit, '', '').subscribe({
+        next: (response: any) => {
+          response = response.data;
+          this.items = response['result'].slice();
+          this.pages = response['pages'];
+        },
+        error: (error) => {
+         if (error.status === 403) {
+            this.router.navigate(['/access-denied']);
+          };
+        },
       });
   }
 
@@ -94,7 +101,7 @@ export class PermissionsComponent {
 
   onEditPermission(permission: any): void {
     this.selectedPermission = { ...permission };
-    this.loadEndpoints();
+    this.loadApiEndpoints();
 
     // Populate the form with selected permission data
     this.editPermissionForm.patchValue({
@@ -144,6 +151,11 @@ export class PermissionsComponent {
             this.toastService.show({template: data.message, classname: "toast--success", delay: 4000});
             this.closeModal('addPermissionModal');
             this.loadPermissions();
+            this.addPermissionForm.patchValue({
+              permissionName: '',
+              groupPermission: '',
+              apiEndpoint: ''
+            });
           }, 300);
         },
         error: (error: any) => {

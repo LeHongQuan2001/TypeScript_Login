@@ -9,6 +9,8 @@ import path from 'path';
 import roleRoutes from './routes/roleRoutes';
 import permissionRoutes from './routes/permissionRoutes';
 import apiEndpointRoutes from './routes/apiEndpointRoutes';
+import { authenticateJWT } from './middlewares/authenticateJWT';
+import { authorize } from './middlewares/authorize';
 
 
 const app = express();
@@ -40,10 +42,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(express.static(path.join(__dirname, 'public/uploads')));
 
 app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
-app.use('/languages', languageRoutes);
-app.use('/roles', roleRoutes);
-app.use('/permissions', permissionRoutes);
+// app.use('/users', userRoutes);
+app.use('/users', authenticateJWT, authorize('admin'), userRoutes);
+app.use('/languages', authenticateJWT, authorize('admin'), languageRoutes);
+app.use('/roles', authenticateJWT, authorize('admin'), roleRoutes);
+app.use('/permissions', authenticateJWT, authorize('admin'), permissionRoutes);
 app.use('/apiEndpoints', apiEndpointRoutes);
 
 
