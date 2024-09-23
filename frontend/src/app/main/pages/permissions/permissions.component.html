@@ -207,7 +207,7 @@
                 <div class="position-relative">
                   <select id="editApiEndpoint" formControlName="editApiEndpoint" class="form-select" style="min-height: 45px;" >
                     <option value="" selected disabled>Select</option>
-                    <option *ngFor="let Endpoint of Endpoints" [value]="Endpoint.id">
+                    <option *ngFor="let Endpoint of ApiEndpoints" [value]="Endpoint.id">
                       {{ Endpoint.description }} ({{ Endpoint.path }})
                     </option>
                   </select>

@@ -6,6 +6,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { emailDomainValidator } from './email-domain.validator';
 import * as CryptoJS from 'crypto-js';
+import { TranslationService } from 'src/app/main/shared/i18n/translation.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   postForm: FormGroup;
   passwordVisible = false;
   loginError: boolean = false;
+  locale: string = "en";
 
   private readonly secretKey = '8016af4e64e81ae37679660bdc1de8a028c0edf7bdb234d7d31ff3ac14a3c589'; // Use a secure key
 
@@ -24,7 +26,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private translate: TranslationService
   ) {
     this.postForm = this.fb.group({
       email: ['', [Validators.required, emailDomainValidator(['gmail.com', 'edu.vn'])]],
@@ -35,6 +38,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const rememberedData = localStorage.getItem('rememberMe');
+    localStorage.setItem('locale', this.locale);
+    this.translate.setDefaultLang(this.locale);
     if (rememberedData) {
       const { email, password } = JSON.parse(rememberedData);
       this.postForm = this.fb.group({

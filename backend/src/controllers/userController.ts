@@ -23,7 +23,7 @@ export const index = async (req: IGetUserAuthInfoRequest, res: Response): Promis
   }
 };
 
-export const getUser = async (req: Request, res: Response): Promise<void> => {
+export const getUser = async (req: IGetUserAuthInfoRequest, res: Response): Promise<void> => {
   const { id } = req.query as { id: string };
   const user = await getUserId(id);
   ok(res, user);

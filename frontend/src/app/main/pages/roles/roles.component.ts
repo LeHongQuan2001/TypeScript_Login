@@ -78,8 +78,15 @@ export class RolesComponent implements OnInit {
   }
 
   loadRoles(): void {
-    this.http.getItems("/roles", '', 0, 0, '', '').subscribe((response: any) => {
+    this.http.getItems("/roles", '', 0, 0, '', '').subscribe({
+     next: (response: any) => {
       this.roles = response.data.result;
+     },
+     error: (error: any) => {
+       if (error.status === 403) {
+         this.router.navigate(['/access-denied']);
+       }
+     }
     });
   }
 
