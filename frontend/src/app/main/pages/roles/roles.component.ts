@@ -42,6 +42,7 @@ export class RolesComponent implements OnInit {
   addRolePermissions: { [key: number]: { [action: string]: boolean } } = {};
   editRolePermissions: { [key: number]: { [action: string]: boolean } } = {};
   maxAvatarsToShow: number = 4;
+  public groupVisibility: boolean[] = [];
 
   errors: any[] = []
 
@@ -141,6 +142,15 @@ export class RolesComponent implements OnInit {
 
   getAdditionalCount(users: User[]): number {
     return users.length > this.maxAvatarsToShow ? users.length - this.maxAvatarsToShow : 0;
+  }
+
+  toggleGroupVisibility(index: number): void {
+    this.groupVisibility[index] = !this.groupVisibility[index];
+  }
+
+  // Function to check if a group is visible
+  isGroupVisible(index: number): boolean {
+    return this.groupVisibility[index];
   }
 
   onAddRoleSubmit(): void {

@@ -401,8 +401,8 @@ label {
 }
 
 .fade {
-    opacity: 1 !important;
-    transition: opacity .15s linear;
+    /* opacity: 1 !important; */
+    /* transition: opacity .15s linear; */
 }
 
 .overlay {

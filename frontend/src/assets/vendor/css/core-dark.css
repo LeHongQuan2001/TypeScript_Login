@@ -3393,7 +3393,7 @@ textarea.form-control-lg {
 }
 
 .fade {
-    transition: opacity .15s linear
+    /* transition: opacity .15s linear */
 }
 
 @media(prefers-reduced-motion: reduce) {
