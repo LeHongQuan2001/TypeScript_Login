@@ -92,7 +92,7 @@ export class ApiService {
       Authorization: `Bearer ${localStorage.getItem('access_token')}`,
     };
 
-    return this.http.get<any>(`${this.apiUrl}/users/get-user`, {
+    return this.http.get<any>(`${this.apiUrl}/sites/get-user`, {
       params: body,
       headers: headers,
     });

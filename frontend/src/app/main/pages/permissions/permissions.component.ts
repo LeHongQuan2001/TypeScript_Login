@@ -88,9 +88,11 @@ export class PermissionsComponent {
           this.pages = response['pages'];
         },
         error: (error) => {
-         if (error.status === 403) {
+          if (error.error.message === "Forbidden: Insufficient permissions or roles") {
             this.router.navigate(['/access-denied']);
-          };
+          } else if (error.error.message === "User is inactive"){
+            this.router.navigate(['/inactive-page']);
+          }
         },
       });
   }

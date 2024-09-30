@@ -8,7 +8,7 @@ interface AuthenticatedRequest extends Request {
   user?: any;
 }
 
-const authenticateToken = async (
+const statusUser = async (
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
@@ -32,6 +32,11 @@ const authenticateToken = async (
     });
 
     req.user = user;
+    const profileUser = await User.findOne({ where: { id: user.userId } });
+    if(profileUser?.status === 'inactive') {
+      res.status(403).json({ message: 'User is inactive' });
+      return;
+    }
     next();
   } catch (error) {
     unauthorized(res);
@@ -39,4 +44,4 @@ const authenticateToken = async (
   }
 };
 
-export default authenticateToken;
+export default statusUser;

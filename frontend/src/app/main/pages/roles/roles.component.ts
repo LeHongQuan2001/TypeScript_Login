@@ -84,9 +84,11 @@ export class RolesComponent implements OnInit {
       this.roles = response.data.result;
      },
      error: (error: any) => {
-       if (error.status === 403) {
-         this.router.navigate(['/access-denied']);
-       }
+      if (error.error.message === "Forbidden: Insufficient permissions or roles") {
+        this.router.navigate(['/access-denied']);
+      } else if (error.error.message === "User is inactive"){
+        this.router.navigate(['/inactive-page']);
+      }
      }
     });
   }
