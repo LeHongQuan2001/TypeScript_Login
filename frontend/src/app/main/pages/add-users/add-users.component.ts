@@ -46,7 +46,7 @@ export class AddUsersComponent {
       },
       error: (error: any) => {
         this.toastService.show({
-          template: error['error']['data'],
+          template: error['error']['message'],
           classname: 'toast--error',
           delay: 2000,
         });

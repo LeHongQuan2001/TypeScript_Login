@@ -97,10 +97,6 @@ export const createNewUser = async (user: any): Promise<any> => {
 };
 
 export const updateInfoUser = async (userId: string, user: any): Promise<any> => {
-  if (user.password) {
-      const hashPW = await bcrypt.hash(user.password, 10);
-      user.password = hashPW;
-  }
   const result = await User.update(user, {
     where: { id: userId },
   });

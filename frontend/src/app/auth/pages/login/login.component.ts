@@ -89,12 +89,22 @@ export class LoginComponent implements OnInit {
           } else {
             localStorage.removeItem('rememberMe');
           }
-          this.router.navigate(['/users/list']);
+          this.router.navigate(['/home']);
         },
         error: (error) => {
-          console.error(error);
-          this.loginError = true;
-          this.snackBar.open(
+          if (error.status === 401 && error.error.message === 'User is inactive') {
+            this.snackBar.open(
+              'Login failed. User is inactive.',
+              'Close',
+              {
+                duration: 3000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+              }
+            );
+          } else {
+            this.loginError = true;
+            this.snackBar.open(
             'Login failed. Please check your credentials.',
             'Close',
             {
@@ -103,6 +113,7 @@ export class LoginComponent implements OnInit {
               verticalPosition: 'bottom',
             }
           );
+          } 
         },
       });
     }

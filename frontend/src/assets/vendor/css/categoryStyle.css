@@ -283,6 +283,7 @@ body {
 
 .page-header {
     background-color: #2b2c40;
+    border-radius: 0.5rem 0.5rem 0% 0%;
 }
 
 /* table-list */

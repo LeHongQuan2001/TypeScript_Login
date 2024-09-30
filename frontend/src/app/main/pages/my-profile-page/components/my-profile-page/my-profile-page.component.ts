@@ -69,7 +69,6 @@ export class MyProfilePageComponent implements OnInit {
     formData.append('email', form.email);
     formData.append('status', form.status);
     formData.append('address', form.address);
-    formData.append('password', "password");
     formData.append('phone', form.phone);
     formData.append('birthday', form.birthday);
 

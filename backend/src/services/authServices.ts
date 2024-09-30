@@ -17,6 +17,9 @@ export const loginUser = async (
 ): Promise<AuthenticatedUser> => {
   const user = await User.findOne({ where: { email } });
   if (user && (await bcrypt.compare(password, user.password))) {
+    if (user.status === "inactive") {
+      throw new Error("User is inactive");
+    }
     const role = await Role.findOne({ where: { id: user.role_id } });
     return {
       id: user.id,

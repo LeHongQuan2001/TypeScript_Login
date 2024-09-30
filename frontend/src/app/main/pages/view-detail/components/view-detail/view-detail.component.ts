@@ -85,7 +85,7 @@ export class ViewDetailComponent implements OnInit {
     formData.append('email', form.email);
     formData.append('status', form.status);
     formData.append('address', form.address);
-    formData.append('password', "password");
+    // formData.append('password', "password");
     formData.append('phone', form.phone);
 
     this.http.updateItem("users", formData, this.item.id).subscribe({

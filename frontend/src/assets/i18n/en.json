@@ -57,7 +57,8 @@
         "signIn": "Sign in",
         "yesDeleteIt": "Yes, deleted this",
         "previous": "Previous",
-        "next": "Next"
+        "next": "Next",
+        "backToHomePage": "Back to home page"
 
     },
     "labels": {
@@ -111,6 +112,8 @@
         "successful": "Successful",
         "failed": "Failed",
         "loginSuccess": "Login Successful",
-        "loginFailed": "Login Failed"
+        "loginFailed": "Login Failed",
+        "noAccess": "No access",
+        "noPermission": "You do not have permission to access this page."
     }
 }
