@@ -1,11 +1,19 @@
 import express from 'express';
 import authenticateToken from '../middlewares/authenticateToken';
-import { index, createLanguage, updateLanguage, deleteLanguage } from '../controllers/languageController';
+import { index, createLanguage, updateLanguage, deleteLanguage, getLanguages } from '../controllers/languageController';
 import { uploads } from '../middlewares/multer';
 
 const router = express.Router();
 
-router.use(authenticateToken);
+// router.use(authenticateToken);
+/**
+ * @swagger
+ * /languages:
+ *   get:
+ *     description: Get a list of all languages
+ */
+router.get('/getLanguages', getLanguages);
+
 
 /**
  * @swagger
@@ -13,7 +21,7 @@ router.use(authenticateToken);
  *   get:
  *     description: Get a list of all languages
  */
-router.get('', index);
+router.get('', authenticateToken, index);
 
 /**
  * @swagger
@@ -21,7 +29,7 @@ router.get('', index);
  *   post:
  *     description: Create a new language
  */
-router.post('/create', uploads.single("flag"), createLanguage);
+router.post('/create', authenticateToken, uploads.single("flag"), createLanguage);
 
 /**
  * @swagger
@@ -29,7 +37,7 @@ router.post('/create', uploads.single("flag"), createLanguage);
  *   put:
  *     description: Update language information
  */
-router.put('/update/:id', uploads.single("flag"), updateLanguage);
+router.put('/update/:id', authenticateToken, uploads.single("flag"), updateLanguage);
 
 /**
  * @swagger
@@ -37,6 +45,6 @@ router.put('/update/:id', uploads.single("flag"), updateLanguage);
  *   delete:
  *     description: Delete a language
  */
-router.delete('/delete', deleteLanguage);
+router.delete('/delete', authenticateToken, deleteLanguage);
 
 export default router;

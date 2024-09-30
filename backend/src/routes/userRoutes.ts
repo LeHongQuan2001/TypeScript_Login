@@ -17,14 +17,6 @@ router.get('', index);
 
 /**
  * @swagger
- * /get-user:
- *   get:
- *     description: Get user details
- */
-router.get('/get-user', getUser);
-
-/**
- * @swagger
  * /create:
  *   post:
  *     description: Create a new user

@@ -28,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
 import { RolesComponent } from './pages/roles/roles.component';
 import { PermissionsComponent } from './pages/permissions/permissions.component';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
+import { InactivePageComponent } from './pages/inactive-page/inactive-page.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AccessDeniedComponent } from './pages/access-denied/access-denied.compo
     RolesComponent,
     PermissionsComponent,
     AccessDeniedComponent,
+    InactivePageComponent,
   ],
   imports: [
     MainRoutingModule,

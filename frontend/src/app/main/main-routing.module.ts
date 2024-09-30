@@ -12,6 +12,7 @@ import { authGuard } from '../auth/auth.guard';
 import { RolesComponent } from './pages/roles/roles.component';
 import { PermissionsComponent } from './pages/permissions/permissions.component';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
+import { InactivePageComponent } from './pages/inactive-page/inactive-page.component';
   
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'role&permission/role', component: RolesComponent, canActivate: [authGuard] },
       { path: 'role&permission/permission', component: PermissionsComponent, canActivate: [authGuard] },
       { path: 'access-denied', component: AccessDeniedComponent},
+      { path: 'inactive-page', component: InactivePageComponent},
     ]
   },
   

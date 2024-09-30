@@ -113,6 +113,7 @@
         "loginSuccess": "Đăng nhập thành công",
         "loginFailed": "Đăng nhập thất bại",
         "noAccess": "Không có quyền truy cập",
-        "noPermission": "Bạn không có quyền truy cập vào trang này."
+        "noPermission": "Bạn không có quyền truy cập vào trang này.",
+        "userIsInactive": "Tài khoản của bạn đã bị khóa tạm thời."
     }
 }

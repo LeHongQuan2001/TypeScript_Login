@@ -114,6 +114,7 @@
         "loginSuccess": "Login Successful",
         "loginFailed": "Login Failed",
         "noAccess": "No access",
-        "noPermission": "You do not have permission to access this page."
+        "noPermission": "You do not have permission to access this page.",
+        "userIsInactive": "Your account has been temporarily locked."
     }
 }

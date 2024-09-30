@@ -9,8 +9,10 @@ import path from 'path';
 import roleRoutes from './routes/roleRoutes';
 import permissionRoutes from './routes/permissionRoutes';
 import apiEndpointRoutes from './routes/apiEndpointRoutes';
+import siteRoutes from './routes/siteRouter';
 import { authenticateJWT } from './middlewares/authenticateJWT';
 import { authorize } from './middlewares/authorize';
+import statusUser from './middlewares/statusUser';
 
 
 const app = express();
@@ -43,11 +45,12 @@ app.use(express.static(path.join(__dirname, 'public/uploads')));
 
 app.use('/auth', authRoutes);
 // app.use('/users', userRoutes);
-app.use('/users', authenticateJWT, authorize('admin'), userRoutes);
-app.use('/languages', authenticateJWT, authorize('admin'), languageRoutes);
-app.use('/roles', authenticateJWT, authorize('admin'), roleRoutes);
-app.use('/permissions', authenticateJWT, authorize('admin'), permissionRoutes);
+app.use('/users', statusUser, authenticateJWT, authorize('admin'), userRoutes);
+app.use('/languages', statusUser, authenticateJWT, authorize('admin'), languageRoutes);
+app.use('/roles', statusUser, authenticateJWT, authorize('admin'), roleRoutes);
+app.use('/permissions', statusUser, authenticateJWT, authorize('admin'), permissionRoutes);
 app.use('/apiEndpoints', apiEndpointRoutes);
+app.use('/sites', siteRoutes);
 
 
 app.listen(5000, () => console.log('Server running on port 5000'));

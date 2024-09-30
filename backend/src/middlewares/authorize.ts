@@ -43,7 +43,7 @@ export const authorize = (requiredRole: string) => {
             const permissionsList = roleRecord.rolePermission?.map((rp: RolePermission) => rp.permission) || [];
 
             if (permissionsList.length === 0) {
-                return res.status(403).json({ message: 'No permissions found for this role' });
+                return res.status(403).json({ message: 'Forbidden: Insufficient permissions or roles' });
             }
 
             const apiEndpoints = permissionsList.map((permission: Permission) => permission.apiEndpoint?.path);
