@@ -23,6 +23,7 @@ export class SideBarComponent implements OnInit {
   activeSubItem: string = '';         // To manage sub-menu active state
   url: string = '';
   role: any = {}
+  permissions: any = {}
   listItem: any = {
     home: 'analytics',
     dashboards: 'analytics',
@@ -34,6 +35,7 @@ export class SideBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleSideBar();
+    this.loadPermissions();
     this.loadData();
     // this.loadActiveUrl()
     this.router.url.split('?')[0].split('/').forEach((e: string, index: number, array: string[]) => {
@@ -90,4 +92,19 @@ export class SideBarComponent implements OnInit {
     })
   }
 
+  loadPermissions() {
+    this.http.getPermissions().subscribe({
+      next: (response: any) => {
+        this.permissions = Array.isArray(response.data?.apiPaths) ? response.data.apiPaths : [];
+      },
+      error: (err) => {
+        console.error('Error loading permissions', err);
+      },
+    });
+  }
+
+  hasPermission(path: string): boolean {
+    return Array.isArray(this.permissions) && this.permissions.includes(path);
+  }
+  
 }

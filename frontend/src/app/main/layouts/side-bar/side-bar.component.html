@@ -1,19 +1,8 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" data-bg-class="bg-menu-theme" style="
-    touch-action: none;
-    user-select: none;
-    -webkit-user-drag: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  ">
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo">
     <a href="#" class="app-brand-link">
       <img [src]="logoUrl" alt="" width="170" height="170" />
     </a>
-    <!-- <a
-      href="javascript:void(0);"
-      class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
-    >
-      <i class="bx bx-chevron-left bx-sm align-middle"></i>
-    </a> -->
   </div>
 
   <div class="menu-inner-shadow"></div>
@@ -28,20 +17,18 @@
       <ul class="menu-sub">
         <li class="menu-item" [class.active]="activeSubItem === 'analytics'">
           <a routerLink="/home" class="menu-link" (click)="setActiveSub('analytics')">
-            <div data-i18n="Analytics">
-              {{ "labels.analytics" | translate }}
-            </div>
+            <div data-i18n="Analytics">{{ "labels.analytics" | translate }}</div>
           </a>
         </li>
       </ul>
     </li>
-    <li class="menu-header small text-uppercase">
+    <li *ngIf="permissions && hasPermission('/users') || permissions && hasPermission('/languages')" class="menu-header small text-uppercase">
       <span class="menu-header-text">Apps &amp; Pages</span>
     </li>
 
     <!-- Pages -->
     <!-- user-page -->
-    <li class="menu-item" [class.active]="activeItem === 'users'" [class.open]="openItem === 'users'">
+    <li class="menu-item" *ngIf="permissions && hasPermission('/users')" [class.active]="activeItem === 'users'" [class.open]="openItem === 'users'">
       <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="setActiveAndOpenItem('users')">
         <i class="menu-icon tf-icons bx bx-user"></i>
         <div data-i18n="Account Settings">{{ "labels.users" | translate }}</div>
@@ -52,51 +39,14 @@
             <div data-i18n="users">{{ "common.list" | translate }}</div>
           </a>
         </li>
-        <!-- <li class="menu-item" [class.active]="activeSubItem === 'users-add'">
-          <a routerLink="/users/add" class="menu-link" (click)="setActiveSub('users-add')">
-            <div data-i18n="users">{{ "labels.addUser" | translate }}</div>
-          </a>
-        </li> -->
       </ul>
     </li>
-    <!-- category-page -->
-    <!-- <li
-      class="menu-item"
-      [class.active]="activeItem === 'categories'"
-      [class.open]="openItem === 'categories'"
-    >
-      <a
-        href="javascript:void(0);"
-        class="menu-link menu-toggle"
-        (click)="setActiveAndOpenItem('categories')"
-      >
-        <i class="menu-icon tf-icons bx bx-category"></i>
-        <div data-i18n="Account Settings">
-          {{ "labels.category" | translate }}
-        </div>
-      </a>
-      <ul class="menu-sub">
-        <li
-          class="menu-item"
-          [class.active]="activeSubItem === 'categories-list'"
-        >
-          <a
-            routerLink="/categories/list"
-            class="menu-link"
-            (click)="setActiveSub('categories-list')"
-          >
-            <div data-i18n="Categories">{{ "common.list" | translate }}</div>
-          </a>
-        </li>
-      </ul>
-    </li> -->
+
     <!-- language-page -->
-    <li class="menu-item" [class.active]="activeItem === 'languages'" [class.open]="openItem === 'languages'">
+    <li class="menu-item" *ngIf="permissions && hasPermission('/languages')" [class.active]="activeItem === 'languages'" [class.open]="openItem === 'languages'">
       <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="setActiveAndOpenItem('languages')">
         <i class="menu-icon tf-icons bx bx-globe"></i>
-        <div data-i18n="Account Settings">
-          {{ "labels.language" | translate }}
-        </div>
+        <div data-i18n="Account Settings">{{ "labels.language" | translate }}</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item" [class.active]="activeSubItem === 'languages-list'">
@@ -106,43 +56,28 @@
         </li>
       </ul>
     </li>
-    <li class="menu-header small text-uppercase">
+    <li *ngIf="permissions && hasPermission('/permissions') || permissions && hasPermission('/roles')" class="menu-header small text-uppercase">
       <span class="menu-header-text">Roles &amp; Permissions</span>
     </li>
     <!-- Permissions Page -->
-    <li class="menu-item" [class.active]="activeItem === 'role&permission'"
+    <li class="menu-item" *ngIf="permissions && hasPermission('/permissions')" [class.active]="activeItem === 'role&permission'"
       [class.open]="openItem === 'role&permission'">
       <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="setActiveAndOpenItem('role&permission')">
         <i class="menu-icon tf-icons bx bx-check-shield"></i>
         <div data-i18n="Permissions Settings">{{ "common.role&permission" | translate }}</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item" [class.active]="activeSubItem === 'role&permission-role'">
+        <li class="menu-item" *ngIf="permissions && hasPermission('/roles')" [class.active]="activeSubItem === 'role&permission-role'">
           <a routerLink="/role&permission/role" class="menu-link" (click)="setActiveSub('role&permission-role')">
             <div data-i18n="role&permission">{{ "common.role" | translate }}</div>
           </a>
         </li>
-        <li class="menu-item" [class.active]="activeSubItem === 'role&permission-permission'">
+        <li class="menu-item" *ngIf="permissions && hasPermission('/permissions')" [class.active]="activeSubItem === 'role&permission-permission'">
           <a routerLink="/role&permission/permission" class="menu-link" (click)="setActiveSub('role&permission-permission')">
             <div data-i18n="role&permission">{{ "common.permission" | translate }}</div>
           </a>
         </li>
       </ul>
     </li>
-
-    <!-- Misc -->
-    <!-- <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">Misc</span>
-    </li>
-    <li class="menu-item">
-      <a
-        href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-        target="_blank"
-        class="menu-link"
-      >
-        <i class="menu-icon tf-icons bx bx-support"></i>
-        <div data-i18n="Support">{{ "common.support" | translate }}</div>
-      </a>
-    </li> -->
   </ul>
 </aside>

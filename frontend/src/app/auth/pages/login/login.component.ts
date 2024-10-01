@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
               'Login failed. User is inactive.',
               'Close',
               {
-                duration: 3000,
+                duration: 4000,
                 horizontalPosition: 'right',
                 verticalPosition: 'bottom',
               }
@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
             'Login failed. Please check your credentials.',
             'Close',
             {
-              duration: 3000,
+              duration: 4000,
               horizontalPosition: 'right',
               verticalPosition: 'bottom',
             }

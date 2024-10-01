@@ -168,6 +168,15 @@ export class ApiService {
     return this.http.put<any>(url, queryBody, { headers }).pipe();
   }
 
+  getPermissions(): Observable<any> {
+    const accessToken = localStorage.getItem('access_token');
+    const url = `${this.apiUrl}/sites/getPermissions`;
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+    return this.http.get<any>(url, { headers: headers}).pipe();
+  }
+
   // authorization
   checkAuth(): boolean {
     const accessToken = localStorage.getItem('access_token');

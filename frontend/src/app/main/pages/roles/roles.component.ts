@@ -82,12 +82,15 @@ export class RolesComponent implements OnInit {
     this.http.getItems("/roles", '', 0, 0, '', '').subscribe({
      next: (response: any) => {
       this.roles = response.data.result;
+      console.log('this.roles', this.roles);
      },
      error: (error: any) => {
       if (error.error.message === "Forbidden: Insufficient permissions or roles") {
         this.router.navigate(['/access-denied']);
       } else if (error.error.message === "User is inactive"){
-        this.router.navigate(['/inactive-page']);
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user_id');
+        this.router.navigate(['/auth/login']);
       }
      }
     });
@@ -178,8 +181,7 @@ export class RolesComponent implements OnInit {
           }, 300);
         },
         error: (error: any) => {
-          this.errors = error["error"]["data"]["errors"];
-          this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 5000}));
+          this.toastService.show({template: error["error"]["message"], classname: "toast--error", delay: 5000})
         }
       });
     } else {
@@ -211,10 +213,7 @@ export class RolesComponent implements OnInit {
           }, 300);
         },
         error: (error: any) => {
-          this.errors = error["error"]["data"]["errors"];
-          this.errors.forEach((error) =>
-            this.toastService.show({template: error["message"], classname: "toast--error", delay: 5000})
-          );
+          this.toastService.show({template: error["error"]["message"], classname: "toast--error", delay: 5000})
         }
       });
     } else {
@@ -260,10 +259,7 @@ export class RolesComponent implements OnInit {
         }, 300);
       },
       error: (error: any) => {
-        const errors = error["error"]["data"]["errors"];
-        errors.forEach((err: any) => {
-          this.toastService.show({ template: err["message"], classname: "toast--error", delay: 5000 });
-        });
+        this.toastService.show({template: error["error"]["message"], classname: "toast--error", delay: 5000})
       }
     });
   }

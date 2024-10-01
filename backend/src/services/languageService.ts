@@ -32,11 +32,6 @@ export const list = async (page: string = '1', limit: string = '10', search: str
     return { result, pages };
 };
 
-export const listLanguages = async (): Promise<any> => {
-  const languages = await Language.findAll();
-  return { languages };
-};
-
 export const createInfoLanguage = async (language: any): Promise<any> => {
   console.log('language', language);
     const result = await Language.create(language);

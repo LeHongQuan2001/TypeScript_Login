@@ -67,7 +67,9 @@ export class UserPageComponent implements OnInit {
         if (error.error.message === "Forbidden: Insufficient permissions or roles") {
           this.router.navigate(['/access-denied']);
         } else if (error.error.message === "User is inactive"){
-          this.router.navigate(['/inactive-page']);
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('user_id');
+          this.router.navigate(['/auth/login']);
         }
       },
     });

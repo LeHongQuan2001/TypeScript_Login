@@ -30,6 +30,7 @@ const statusUser = async (
         resolve(decoded);
       });
     });
+    console.log('user111111111', user);
 
     req.user = user;
     const profileUser = await User.findOne({ where: { id: user.userId } });
