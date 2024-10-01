@@ -26,7 +26,6 @@ export const list = async (
   let whereConditions: any = {};
 
   if (search && search !== "") {
-    console.log('search', search);
     const valueLowCase = search.toLowerCase();
     whereConditions = {
       ...whereConditions,

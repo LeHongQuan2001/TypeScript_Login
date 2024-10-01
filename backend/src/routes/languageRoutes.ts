@@ -1,19 +1,11 @@
 import express from 'express';
 import authenticateToken from '../middlewares/authenticateToken';
-import { index, createLanguage, updateLanguage, deleteLanguage, getLanguages } from '../controllers/languageController';
+import { index, createLanguage, updateLanguage, deleteLanguage } from '../controllers/languageController';
 import { uploads } from '../middlewares/multer';
 
 const router = express.Router();
 
 // router.use(authenticateToken);
-/**
- * @swagger
- * /languages:
- *   get:
- *     description: Get a list of all languages
- */
-router.get('/getLanguages', getLanguages);
-
 
 /**
  * @swagger

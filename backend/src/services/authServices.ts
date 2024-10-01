@@ -21,6 +21,9 @@ export const loginUser = async (
       throw new Error("User is inactive");
     }
     const role = await Role.findOne({ where: { id: user.role_id } });
+    if (!role) {
+      throw new Error("Role not found");
+    }
     return {
       id: user.id,
       email: user.email,

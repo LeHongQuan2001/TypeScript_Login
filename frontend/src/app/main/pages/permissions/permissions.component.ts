@@ -39,10 +39,10 @@ export class PermissionsComponent {
     apiEndpoint: ['', Validators.required],
   });
 
-  editPermissionForm: FormGroup = this.fb.group({
+  editPermissionForm = this.fb.group({
     editPermissionName: ['', Validators.required],
     groupPermission: ['', Validators.required],
-    editApiEndpoint: ['', Validators.required],
+    apiEndpoint: ['', Validators.required],
   });
 
   constructor(
@@ -91,7 +91,9 @@ export class PermissionsComponent {
           if (error.error.message === "Forbidden: Insufficient permissions or roles") {
             this.router.navigate(['/access-denied']);
           } else if (error.error.message === "User is inactive"){
-            this.router.navigate(['/inactive-page']);
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user_id');
+            this.router.navigate(['/auth/login']);
           }
         },
       });
@@ -109,8 +111,9 @@ export class PermissionsComponent {
     this.editPermissionForm.patchValue({
       editPermissionName: permission.name,
       groupPermission: permission.groupPermission.id,
-      editApiEndpoint: permission.apiEndpoint.id
+      apiEndpoint: permission.apiEndpoint.id
     });
+    console.log('this.editPermissionForm', this.editPermissionForm.value);
   }
 
   onDeletePermission(permission: any): void {
@@ -161,8 +164,7 @@ export class PermissionsComponent {
           }, 300);
         },
         error: (error: any) => {
-          this.errors = error["error"]["data"]["errors"];
-          this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 5000}));
+          this.toastService.show({template: error["error"]["message"], classname: "toast--error", delay: 5000})
         }
       });
     }
@@ -178,8 +180,7 @@ export class PermissionsComponent {
           this.loadPermissions();
         },
         error: (error: any) => {
-          this.errors = error["error"]["data"]["errors"];
-          this.errors.forEach((error) => this.toastService.show({template: error.message, classname: "toast--error", delay: 5000}));
+          this.toastService.show({template: error["error"]["message"], classname: "toast--error", delay: 5000})
         }
       });
     }
@@ -197,10 +198,7 @@ export class PermissionsComponent {
         }, 300);
       },
       error: (error: any) => {
-        const errors = error["error"]["data"]["errors"];
-        errors.forEach((err: any) => {
-          this.toastService.show({ template: err["message"], classname: "toast--error", delay: 5000 });
-        });
+        this.toastService.show({template: error["error"]["message"], classname: "toast--error", delay: 5000})
       }
     });
   }

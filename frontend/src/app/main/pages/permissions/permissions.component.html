@@ -205,9 +205,9 @@
               <div class="col-12 mb-4 mt-4">
                 <label class="form-label" for="editApiEndpoint">Api Endpoint</label>
                 <div class="position-relative">
-                  <select id="editApiEndpoint" formControlName="editApiEndpoint" class="form-select" style="min-height: 45px;" >
+                  <select id="editApiEndpoint" formControlName="apiEndpoint" class="form-select" style="min-height: 45px;" >
                     <option value="" selected disabled>Select</option>
-                    <option *ngFor="let Endpoint of ApiEndpoints" [value]="Endpoint.id">
+                    <option *ngFor="let Endpoint of ApiEndpoints" [selected]="Endpoint.id === editPermissionForm.controls['apiEndpoint'].value">
                       {{ Endpoint.description }} ({{ Endpoint.path }})
                     </option>
                   </select>

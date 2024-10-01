@@ -40,6 +40,11 @@ export class MyProfilePageComponent implements OnInit {
   timeRemaining: { [id: number]: Observable<number> } = {};
 
   ngOnInit(): void {
+    this.item = {
+      role: {
+        name: ''
+      }
+    };
     this.loadData()
   }
 
@@ -47,12 +52,15 @@ export class MyProfilePageComponent implements OnInit {
     const id = localStorage.getItem('user_id');
     this.http.getUser(id).subscribe({
       next: (data: any) => {
-        this.item = data["data"]
+        this.item = data["data"] || {};
+        if (!this.item.role) {
+          this.item.role = { name: '' };
+        }
       },
       error: (error: any) => {
-        this.errors = error["error"]["data"]["errors"];
+        this.toastService.show({template: error["error"]["message"], classname: "toast--error", delay: 5000})
       },
-    })
+    });
   }
 
   // update
@@ -78,8 +86,7 @@ export class MyProfilePageComponent implements OnInit {
         this.loadData()
       },
       error: (error: any) => {
-        this.errors = error["error"]["data"]["errors"];
-        this.errors.forEach((error, index) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 2000 + (index * 500)}));
+        this.toastService.show({template: error["error"]["message"], classname: "toast--error", delay: 5000})
       }
     })
   }

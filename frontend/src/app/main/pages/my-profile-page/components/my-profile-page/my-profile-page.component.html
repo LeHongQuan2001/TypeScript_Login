@@ -174,68 +174,6 @@
         </div>
         <!-- /Account -->
       </div>
-      <div class="card" style="padding: 20px">
-        <h5 class="card-header">
-          {{ "buttons.deactive" | translate }}
-        </h5>
-        <div class="card-body">
-          <div class="mb-3 col-12 mb-0">
-            <div class="alert alert-warning">
-              <h6 class="alert-heading mb-1">
-                {{ "labels.titleConfirm_1" | translate }}
-              </h6>
-              <p class="mb-0">
-                {{ "labels.titleConfirm_2" | translate }}
-              </p>
-            </div>
-          </div>
-          <form id="formAccountDeactivation" [ngStyle]="{ display: isShowDeactive ? 'block' : 'none' }">
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation"
-                (change)="onCheckConfirm()" />
-              <label class="form-check-label" for="accountActivation">
-                {{ "labels.subtitleConfirm_3" | translate }}
-              </label>
-            </div>
-            <button type="button" class="btn btn-danger deactivate-account" [class.disabled]="!checkConfirm"
-              (click)="toggleDelete(); onClickDelete(item)">
-              {{ "buttons.deactive" | translate }}
-            </button>
-          </form>
-          <div class="d-flex align-items-center" *ngIf="idDelete.has(item.id)">
-            <button type="button" class="btn btn-success" (click)="onClickCancel(item)">
-              {{ "buttons.cancel" | translate }}
-            </button>
-            <p class="mb-0 ms-3">
-              Please wait
-              <span class="badge mx-1 bg-label-warning">
-                {{ (timeRemaining[item.id] | async) || 0 | duration }}
-              </span>
-              to deactivate your account
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
-
-<!-- delete -->
-<!-- <app-delete
-  [isDelete]="isDelete"
-  (close)="toggleDelete()"
-  (close)="toggleDeleteFailed()"
-  (closeSuccess)="toggleDeleteSuccess()"
-></app-delete> -->
-
-<!-- <app-delete-failed
-  [isDeleteFailed]="isDeleteFailed"
-  (close)="toggleDeleteFailed()"
-></app-delete-failed> -->
-
-<!-- <app-delete-success
-  [isDeleteSuccess]="isDeleteSuccess"
-  (close)="toggleDeleteSuccess()"
-  [url]="url"
-  [idDelete]="idDelete"
-></app-delete-success> -->

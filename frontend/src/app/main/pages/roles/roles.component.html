@@ -70,7 +70,7 @@
               </div>
               <div class="col-12">
                 <h5 class="mb-6">Role Permissions</h5>
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
                   <table class="table table-flush-spacing mb-0">
                     <!-- Loop through each group of permissions -->
                     <tbody *ngFor="let groupId of getObjectKeys(permissions); let i = index">
@@ -141,7 +141,7 @@
               </div>
               <div class="col-12">
                 <h5 class="mb-6">Role Permissions</h5>
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
                   <table class="table table-flush-spacing mb-0">
                     <tbody *ngFor="let groupId of getObjectKeys(permissions); let i = index">
                       <tr (click)="toggleGroupVisibility(i)" style="cursor: pointer;">
