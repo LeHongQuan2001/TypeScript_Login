@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
@@ -12,8 +13,9 @@ import apiEndpointRoutes from './routes/apiEndpointRoutes';
 import siteRoutes from './routes/siteRouter';
 import { authenticateJWT } from './middlewares/authenticateJWT';
 import { authorize } from './middlewares/authorize';
-import statusUser from './middlewares/statusUser';
+import mustStatusUser from './middlewares/statusUser';
 
+dotenv.config();
 
 const app = express();
 
@@ -45,10 +47,10 @@ app.use(express.static(path.join(__dirname, 'public/uploads')));
 
 app.use('/auth', authRoutes);
 // app.use('/users', userRoutes);
-app.use('/users', statusUser, authenticateJWT, authorize('admin'), userRoutes);
-app.use('/languages', statusUser, authenticateJWT, authorize('admin'), languageRoutes);
-app.use('/roles', statusUser, authenticateJWT, authorize('admin'), roleRoutes);
-app.use('/permissions', statusUser, authenticateJWT, authorize('admin'), permissionRoutes);
+app.use('/users', mustStatusUser, authenticateJWT, authorize('admin'), userRoutes);
+app.use('/languages', mustStatusUser, authenticateJWT, authorize('admin'), languageRoutes);
+app.use('/roles', mustStatusUser, authenticateJWT, authorize('admin'), roleRoutes);
+app.use('/permissions', mustStatusUser, authenticateJWT, authorize('admin'), permissionRoutes);
 app.use('/apiEndpoints', apiEndpointRoutes);
 app.use('/sites', siteRoutes);
 

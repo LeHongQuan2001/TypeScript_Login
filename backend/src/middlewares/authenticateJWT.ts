@@ -2,6 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { IGetUserAuthInfoRequest } from '../types/express';
+import config from '../configs';
 
 export const authenticateJWT = async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split(' ')[1]; // Lấy JWT từ header Authorization
@@ -11,7 +12,7 @@ export const authenticateJWT = async (req: IGetUserAuthInfoRequest, res: Respons
     }
 
     try {
-        const decoded = jwt.verify(token, '8016af4e64e81ae37679660bdc1de8a028c0edf7bdb234d7d31ff3ac14a3c589') as any; // Giải mã token
+        const decoded = jwt.verify(token, config.jwt.secret) as any; // Giải mã token
 
         req.user = {
             userId: decoded.userId,

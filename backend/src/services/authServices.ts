@@ -38,7 +38,7 @@ export const deleteOtpService = async (otp: string): Promise<any> => {
   return result;
 };
 
-export const forgotPwService = async (email: string): Promise<any> => {
+export const forgotPasswordService = async (email: string): Promise<any> => {
   const user = await User.findOne({ where: { email } });
   if (!user) {
     throw new Error("User not found");

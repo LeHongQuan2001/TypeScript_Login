@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { loginUser, deleteOtpService, forgotPwService, verifyEmailService, newPasswordService, sendMailService } from '../services/authServices';
+import { loginUser, deleteOtpService, forgotPasswordService, verifyEmailService, newPasswordService, sendMailService } from '../services/authServices';
 import { ok, unauthorized } from '../utils/responseUtils';
 
 export const login = async (req: Request, res: Response): Promise<void> => {
@@ -23,7 +23,7 @@ export const deleteOtp = async (req: Request, res: Response): Promise<void> => {
 
 export const forgotPassword = async (req: Request, res: Response): Promise<void> => {
     try {
-        const result = await forgotPwService(req.body.email);
+        const result = await forgotPasswordService(req.body.email);
         ok(res, result);
     } catch (error) {
         if (error instanceof Error) {
