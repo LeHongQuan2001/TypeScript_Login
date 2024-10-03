@@ -141,9 +141,8 @@
               </label>
               <div class="position-relative">
                 <select id="" name="role_id" class="form-select" ngModel>
-                  <option value="">{{ "labels.select" | translate }}</option>
-                  <option value="1">{{ "common.admin" | translate }}</option>
-                  <option value="2">{{ "common.user" | translate }}</option>
+                  <option value="" selected disabled>{{ "labels.select" | translate }}</option>
+                  <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
                 </select>
               </div>
             </div>
