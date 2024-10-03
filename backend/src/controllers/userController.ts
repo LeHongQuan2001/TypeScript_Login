@@ -3,6 +3,12 @@ import { invalidated, ok, unauthorized } from "../utils/responseUtils";
 import { list, getUserId, createNewUser, updateInfoUser, deleteInfoUser } from "../services/userServices";
 import { IGetUserAuthInfoRequest } from "../types/express";
 
+const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+
+const attachFlagUrl = (file: Express.Multer.File | undefined) => {
+    return file && file.filename ? `${baseUrl}/${file.filename}` : undefined;
+};
+
 export const index = async (req: IGetUserAuthInfoRequest, res: Response): Promise<void> => {
   try {
     const { page, limit, search, role, status } = req.query as {
@@ -35,8 +41,9 @@ export const createUser = async (
 ): Promise<void> => {   
   try {
     const user = req.body;
-    if (req.file && req.file.filename) {
-      user.avatar = `http://localhost:5000/${req.file.filename}`;
+    const avtUrl = attachFlagUrl(req.file);
+    if (avtUrl) {
+      user.avatar = avtUrl;
     }
     const newUser = await createNewUser(user);
     ok(res, newUser);
@@ -56,8 +63,9 @@ export const updateUser = async (
   try {
     const userId = req.params.id;
     const user = req.body;
-    if (req.file && req.file.filename) {
-      user.avatar = `http://localhost:5000/${req.file.filename}`;
+    const avtUrl = attachFlagUrl(req.file);
+    if (avtUrl) {
+      user.avatar = avtUrl;
     }
     await updateInfoUser(userId, user);
     ok(res, { user: "Update successful" });

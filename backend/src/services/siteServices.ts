@@ -1,3 +1,4 @@
+import config from "../configs";
 import ApiEndpoint from "../models/apiEndpointModel";
 import Language from "../models/languageModel";
 import Permission from "../models/permissionModel";
@@ -14,7 +15,7 @@ export const listPermissions = async (data: string): Promise<any> => {
   const token = data.split(" ")[1];
   
   const user = await new Promise<any>((resolve, reject) => {
-    JWT.verify(token, '8016af4e64e81ae37679660bdc1de8a028c0edf7bdb234d7d31ff3ac14a3c589', (error, decoded) => {
+    JWT.verify(token, config.jwt.secret, (error, decoded) => {
       if (error) {
         return reject(error);
       }

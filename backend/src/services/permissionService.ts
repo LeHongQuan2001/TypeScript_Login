@@ -52,7 +52,7 @@ export const list = async (
   return { result, pages };
 };
 
-export const getIdPerm = async (id: string): Promise<any> => {
+export const getIdPermission = async (id: string): Promise<any> => {
   const permission = await Permission.findByPk(id, {
     include: [
       {
@@ -70,7 +70,7 @@ export const groupPermData = async (): Promise<any> => {
   return result;
 };
 
-export const createInfoPerm = async (data: any): Promise<any> => {
+export const createInfoPermission = async (data: any): Promise<any> => {
   try {
     const { permissionName, apiEndpoint, groupPermission } = data;
     let groupPerm = await GroupPermission.findOne({ where: { id: groupPermission } });
@@ -97,7 +97,7 @@ export const createInfoPerm = async (data: any): Promise<any> => {
   }
 };
 
-export const updateInfoPerm = async (id: string, data: any): Promise<any> => {
+export const updateInfoPermission = async (id: string, data: any): Promise<any> => {
   try {
     const { editPermissionName, editApiEndpoint, groupPermission } = data;
     const permission = await Permission.findByPk(id);
@@ -123,7 +123,7 @@ export const updateInfoPerm = async (id: string, data: any): Promise<any> => {
   }
 };
 
-export const deleteInfoPerm = async (ids: string[]): Promise<any> => {
+export const deleteInfoPermission = async (ids: string[]): Promise<any> => {
   console.log('ids', ids);
   try {
     await Permission.destroy({ where: { id: ids } });

@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { emailDomainValidator } from './email-domain.validator';
 import * as CryptoJS from 'crypto-js';
 import { TranslationService } from 'src/app/main/shared/i18n/translation.service';
+import { jwtConfig } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   loginError: boolean = false;
   locale: string = "en";
 
-  private readonly secretKey = '8016af4e64e81ae37679660bdc1de8a028c0edf7bdb234d7d31ff3ac14a3c589'; // Use a secure key
+  private readonly secretKey = jwtConfig.secretKey;
 
   constructor(
     private authService: AuthService,

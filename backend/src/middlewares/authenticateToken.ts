@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import jwtConfig from "../configs/jwt";
 import JWT from "jsonwebtoken";
 import { unauthorized } from "../utils/responseUtils";
-import User from "../models/userModel";
+import config from "../configs";
 
 interface AuthenticatedRequest extends Request {
   user?: any;
@@ -23,7 +22,7 @@ const authenticateToken = async (
 
   try {
     const user = await new Promise<any>((resolve, reject) => {
-      JWT.verify(token, '8016af4e64e81ae37679660bdc1de8a028c0edf7bdb234d7d31ff3ac14a3c589', (error, decoded) => {
+      JWT.verify(token, config.jwt.secret, (error, decoded) => {
         if (error) {
           return reject(error);
         }

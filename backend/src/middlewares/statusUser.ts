@@ -3,12 +3,13 @@ import jwtConfig from "../configs/jwt";
 import JWT from "jsonwebtoken";
 import { unauthorized } from "../utils/responseUtils";
 import User from "../models/userModel";
+import config from "../configs";
 
 interface AuthenticatedRequest extends Request {
   user?: any;
 }
 
-const statusUser = async (
+const mustStatusUser = async (
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
@@ -23,14 +24,13 @@ const statusUser = async (
 
   try {
     const user = await new Promise<any>((resolve, reject) => {
-      JWT.verify(token, '8016af4e64e81ae37679660bdc1de8a028c0edf7bdb234d7d31ff3ac14a3c589', (error, decoded) => {
+      JWT.verify(token, config.jwt.secret, (error, decoded) => {
         if (error) {
           return reject(error);
         }
         resolve(decoded);
       });
     });
-    console.log('user111111111', user);
 
     req.user = user;
     const profileUser = await User.findOne({ where: { id: user.userId } });
@@ -45,4 +45,4 @@ const statusUser = async (
   }
 };
 
-export default statusUser;
+export default mustStatusUser;

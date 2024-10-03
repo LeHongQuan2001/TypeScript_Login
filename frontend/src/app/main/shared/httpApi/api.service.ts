@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 interface AuthResponse {
   access_token: string;
@@ -22,7 +23,7 @@ interface AuthResponse {
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:5000';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
