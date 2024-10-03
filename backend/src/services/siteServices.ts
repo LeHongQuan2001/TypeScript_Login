@@ -53,3 +53,8 @@ export const listPermissions = async (data: string): Promise<any> => {
 
   return { apiPaths };
 };
+
+export const listRoles = async (): Promise<any> => {
+  const roles = await Role.findAll();
+  return { roles };
+}

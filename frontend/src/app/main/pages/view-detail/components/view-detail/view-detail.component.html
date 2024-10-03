@@ -6,7 +6,7 @@
       <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
         <!-- User Card -->
         <div class="card">
-          <div class="card-body">
+          <div class="card-body" style="min-height: 475px;">
             <div class="user-avatar-section">
               <div class="d-flex align-items-center flex-column">
                 <img
@@ -72,7 +72,7 @@
                   <span>{{ item.address }}</span>
                 </li>
               </ul>
-              <div
+              <!-- <div
                 id="detail-control"
                 class="d-flex justify-content-center pt-3"
               >
@@ -82,7 +82,7 @@
                   (click)="toggleDelete(); onClickDelete(item)"
                   >{{ "buttons.suspended" | translate }}</a
                 >
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -98,12 +98,6 @@
             <a class="nav-link active" href="javascript:void(0)"
               ><i class="bx bx-user me-1"></i
               >{{ "buttons.account" | translate }}</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)"
-              ><i class="bx bx-lock-alt me-1"></i
-              >{{ "buttons.security" | translate }}</a
             >
           </li>
         </ul>
@@ -175,10 +169,10 @@
                     ngmodel
                     class="form-select ng-untouched ng-pristine ng-valid"
                     [(ngModel)]="item.role_id"
+                    style="min-height: 45px;"
                   >
-                    <option value="">{{ "labels.select" | translate }}</option>
-                    <option value="1">{{ "common.admin" | translate }}</option>
-                    <option value="2">{{ "common.user" | translate }}</option>
+                  <option value="" selected disabled>{{ "labels.select" | translate }}</option>
+                  <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
                   </select>
                 </div>
                 <div class="col-12 col-md-6">
@@ -204,6 +198,7 @@
                     ngmodel
                     class="form-select ng-untouched ng-pristine ng-valid"
                     [(ngModel)]="item.status"
+                    style="min-height: 45px;"
                   >
                     <option value="">{{ "labels.select" | translate }}</option>
                     <option value="active">
@@ -245,6 +240,7 @@
                       aria-hidden="true"
                       ngModel
                       [(ngModel)]="item.address"
+                      style="min-height: 45px;"
                     >
                       <option value="" data-select2-id="5">
                         {{ "labels.select" | translate }}

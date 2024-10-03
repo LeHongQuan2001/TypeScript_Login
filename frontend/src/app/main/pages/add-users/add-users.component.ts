@@ -21,8 +21,11 @@ export class AddUsersComponent {
 
   image: File | null = null;
   errors: any[] = [];
+  roles: any[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadRoles();
+  }
 
   onSubmit(form: any): void {
     const formData = new FormData();
@@ -30,6 +33,7 @@ export class AddUsersComponent {
     formData.append('username', form.username);
     formData.append('role_id', form.role_id);
     formData.append('email', form.email);
+    formData.append('birthday', form.birthday);
     formData.append('status', form.status);
     formData.append('address', form.address);
     formData.append('password', 'password');
@@ -46,11 +50,19 @@ export class AddUsersComponent {
       },
       error: (error: any) => {
         this.toastService.show({
-          template: error['error']['message'],
+          template: error['error']['message'] || error['error']['data'],
           classname: 'toast--error',
           delay: 2000,
         });
       },
+    });
+  }
+
+  loadRoles(): void {
+    this.http.getItems("/sites/getRoles", '', 0, 0, '', '').subscribe({
+     next: (response: any) => {
+      this.roles = response.data.roles;
+     },
     });
   }
 

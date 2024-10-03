@@ -1,5 +1,5 @@
 import express from 'express';
-import { getLanguages, getPermissions } from '../controllers/siteController';
+import { getLanguages, getPermissions, getRoles } from '../controllers/siteController';
 import { getUser } from '../controllers/userController';
 
 const router = express.Router();
@@ -27,6 +27,14 @@ router.get('/get-user', getUser);
  *     description: Get getPermissions
  */
 router.get('/getPermissions', getPermissions);
+
+/**
+ * @swagger
+ * /getRoles:
+ *   get:
+ *     description: Get getRoles
+ */
+router.get('/getRoles', getRoles);
 
 
 
