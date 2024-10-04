@@ -14,8 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const responseUtils_1 = require("../utils/responseUtils");
+const userModel_1 = __importDefault(require("../models/userModel"));
 const configs_1 = __importDefault(require("../configs"));
-const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const mustStatusUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const authHeader = req.headers["authorization"];
     if (!authHeader) {
         (0, responseUtils_1.unauthorized)(res);
@@ -32,6 +33,11 @@ const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             });
         });
         req.user = user;
+        const profileUser = yield userModel_1.default.findOne({ where: { id: user.userId } });
+        if ((profileUser === null || profileUser === void 0 ? void 0 : profileUser.status) === 'inactive') {
+            res.status(403).json({ message: 'User is inactive' });
+            return;
+        }
         next();
     }
     catch (error) {
@@ -39,4 +45,4 @@ const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         return;
     }
 });
-exports.default = authenticateToken;
+exports.default = mustStatusUser;

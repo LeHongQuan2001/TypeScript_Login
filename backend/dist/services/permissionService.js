@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteInfoPerm = exports.updateInfoPerm = exports.createInfoPerm = exports.groupPermData = exports.getIdPerm = exports.list = void 0;
+exports.deleteInfoPermission = exports.updateInfoPermission = exports.createInfoPermission = exports.groupPermData = exports.getIdPermission = exports.list = void 0;
 const apiEndpointModel_1 = __importDefault(require("../models/apiEndpointModel"));
 const groupPermissionModel_1 = __importDefault(require("../models/groupPermissionModel"));
 const permissionModel_1 = __importDefault(require("../models/permissionModel"));
@@ -57,7 +57,7 @@ const list = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (pa
     return { result, pages };
 });
 exports.list = list;
-const getIdPerm = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const getIdPermission = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const permission = yield permissionModel_1.default.findByPk(id, {
         include: [
             {
@@ -69,13 +69,13 @@ const getIdPerm = (id) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return permission;
 });
-exports.getIdPerm = getIdPerm;
+exports.getIdPermission = getIdPermission;
 const groupPermData = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield groupPermissionModel_1.default.findAll();
     return result;
 });
 exports.groupPermData = groupPermData;
-const createInfoPerm = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const createInfoPermission = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { permissionName, apiEndpoint, groupPermission } = data;
         let groupPerm = yield groupPermissionModel_1.default.findOne({ where: { id: groupPermission } });
@@ -100,8 +100,8 @@ const createInfoPerm = (data) => __awaiter(void 0, void 0, void 0, function* () 
         throw error;
     }
 });
-exports.createInfoPerm = createInfoPerm;
-const updateInfoPerm = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createInfoPermission = createInfoPermission;
+const updateInfoPermission = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { editPermissionName, editApiEndpoint, groupPermission } = data;
         const permission = yield permissionModel_1.default.findByPk(id);
@@ -128,8 +128,8 @@ const updateInfoPerm = (id, data) => __awaiter(void 0, void 0, void 0, function*
         throw error;
     }
 });
-exports.updateInfoPerm = updateInfoPerm;
-const deleteInfoPerm = (ids) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updateInfoPermission = updateInfoPermission;
+const deleteInfoPermission = (ids) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('ids', ids);
     try {
         yield permissionModel_1.default.destroy({ where: { id: ids } });
@@ -139,4 +139,4 @@ const deleteInfoPerm = (ids) => __awaiter(void 0, void 0, void 0, function* () {
         throw error;
     }
 });
-exports.deleteInfoPerm = deleteInfoPerm;
+exports.deleteInfoPermission = deleteInfoPermission;

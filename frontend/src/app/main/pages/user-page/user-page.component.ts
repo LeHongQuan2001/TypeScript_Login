@@ -27,6 +27,7 @@ export class UserPageComponent implements OnInit {
   pages: number = 0;
 
   item: any = {};
+  roles: any[] = [];
   items: User[] = [];
   url: string = '/users';
 
@@ -48,6 +49,7 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadItems();
+    this.loadRoles();
     this.loadToast();
   }
 
@@ -72,6 +74,14 @@ export class UserPageComponent implements OnInit {
           this.router.navigate(['/auth/login']);
         }
       },
+    });
+  }
+
+  loadRoles(): void {
+    this.api.getItems("/sites/getRoles", '', 0, 0, '', '').subscribe({
+     next: (response: any) => {
+      this.roles = response.data.roles;
+     },
     });
   }
 

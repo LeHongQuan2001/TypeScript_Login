@@ -25,7 +25,6 @@ const list = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (pa
     const limitNo = isNaN(limitNumber) ? 10 : limitNumber;
     let whereConditions = {};
     if (search && search !== "") {
-        console.log('search', search);
         const valueLowCase = search.toLowerCase();
         whereConditions = Object.assign(Object.assign({}, whereConditions), { [sequelize_1.Op.or]: [
                 sequelize_typescript_1.Sequelize.literal(`MATCH(username, email, phone) AGAINST('${valueLowCase}' IN NATURAL LANGUAGE MODE)`),
@@ -79,10 +78,6 @@ const createNewUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.createNewUser = createNewUser;
 const updateInfoUser = (userId, user) => __awaiter(void 0, void 0, void 0, function* () {
-    if (user.password) {
-        const hashPW = yield bcrypt.hash(user.password, 10);
-        user.password = hashPW;
-    }
     const result = yield userModel_1.default.update(user, {
         where: { id: userId },
     });

@@ -35,7 +35,7 @@ const deleteOtp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.deleteOtp = deleteOtp;
 const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield (0, authServices_1.forgotPwService)(req.body.email);
+        const result = yield (0, authServices_1.forgotPasswordService)(req.body.email);
         (0, responseUtils_1.ok)(res, result);
     }
     catch (error) {
