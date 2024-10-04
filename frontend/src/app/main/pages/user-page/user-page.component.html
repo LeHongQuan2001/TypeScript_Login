@@ -80,8 +80,7 @@
                     (change)="handleRoleFilter($event)"
                   >
                     <option value="" selected>All Roles</option>
-                    <option value="1">Admin</option>
-                    <option value="2">User</option>
+                    <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
                   </select>
                 </div>
                 <div
@@ -178,13 +177,7 @@
                 <td>{{ item.username }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.phone }}</td>
-                <td>
-                  {{
-                    item.role.name === "admin"
-                      ? ("common.admin" | translate)
-                      : ("common.user" | translate)
-                  }}
-                </td>
+                <td>{{ item.role.name }}</td>
                 <td>
                   <span
                     class="badge me-1"

@@ -46,7 +46,7 @@ __decorate([
 Verification = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: 'verifications',
-        timestamps: true,
+        timestamps: false,
     })
 ], Verification);
 exports.default = Verification;

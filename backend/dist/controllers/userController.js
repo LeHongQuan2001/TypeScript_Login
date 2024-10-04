@@ -12,6 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.updateUser = exports.createUser = exports.getUser = exports.index = void 0;
 const responseUtils_1 = require("../utils/responseUtils");
 const userServices_1 = require("../services/userServices");
+const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+const attachFlagUrl = (file) => {
+    return file && file.filename ? `${baseUrl}/${file.filename}` : undefined;
+};
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { page, limit, search, role, status } = req.query;
@@ -37,8 +41,9 @@ exports.getUser = getUser;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = req.body;
-        if (req.file && req.file.filename) {
-            user.avatar = `http://localhost:5000/${req.file.filename}`;
+        const avtUrl = attachFlagUrl(req.file);
+        if (avtUrl) {
+            user.avatar = avtUrl;
         }
         const newUser = yield (0, userServices_1.createNewUser)(user);
         (0, responseUtils_1.ok)(res, newUser);
@@ -57,8 +62,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const userId = req.params.id;
         const user = req.body;
-        if (req.file && req.file.filename) {
-            user.avatar = `http://localhost:5000/${req.file.filename}`;
+        const avtUrl = attachFlagUrl(req.file);
+        if (avtUrl) {
+            user.avatar = avtUrl;
         }
         yield (0, userServices_1.updateInfoUser)(userId, user);
         (0, responseUtils_1.ok)(res, { user: "Update successful" });

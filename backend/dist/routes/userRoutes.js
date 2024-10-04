@@ -19,13 +19,6 @@ router.use(authenticateToken_1.default);
 router.get('', userController_1.index);
 /**
  * @swagger
- * /get-user:
- *   get:
- *     description: Get user details
- */
-router.get('/get-user', userController_1.getUser);
-/**
- * @swagger
  * /create:
  *   post:
  *     description: Create a new user

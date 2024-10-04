@@ -20,7 +20,7 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.index = index;
 const getId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const Permissions = yield (0, permissionService_1.getIdPerm)(id);
+    const Permissions = yield (0, permissionService_1.getIdPermission)(id);
     (0, responseUtils_1.ok)(res, Permissions);
 });
 exports.getId = getId;
@@ -31,20 +31,20 @@ const groupPerm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.groupPerm = groupPerm;
 const createPerm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
-    const result = yield (0, permissionService_1.createInfoPerm)(data);
+    const result = yield (0, permissionService_1.createInfoPermission)(data);
     (0, responseUtils_1.ok)(res, result);
 });
 exports.createPerm = createPerm;
 const updatePerm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const data = req.body;
-    const result = yield (0, permissionService_1.updateInfoPerm)(id, data);
+    const result = yield (0, permissionService_1.updateInfoPermission)(id, data);
     (0, responseUtils_1.ok)(res, result);
 });
 exports.updatePerm = updatePerm;
 const deletePerm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ids } = req.body;
-    yield (0, permissionService_1.deleteInfoPerm)(ids);
+    yield (0, permissionService_1.deleteInfoPermission)(ids);
     (0, responseUtils_1.ok)(res, {
         message: "Permissions deleted successfully",
     });

@@ -14,20 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendMail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
+require('dotenv').config();
 const transporter = nodemailer_1.default.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.ADMIN_EMAIL,
-        pass: process.env.ADMIN_PASSWORD,
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     },
 });
 // Function to send email
 const sendMail = (code) => __awaiter(void 0, void 0, void 0, function* () {
     const info = yield transporter.sendMail({
-        from: '"Admin" <lequan18042001@gmail.com>', // Sender address
-        to: 'lequan18042001@gmail.com', // List of receivers
-        subject: code.subject, // Subject line
-        text: code.text, // Plain text body
+        from: '"Admin" <lequan18042001@gmail.com>',
+        to: code.to,
+        subject: code.subject,
+        text: code.text,
     });
     return info;
 });

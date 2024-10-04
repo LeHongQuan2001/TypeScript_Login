@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.newPasswordService = exports.verifyEmailService = exports.sendMailService = exports.forgotPwService = exports.deleteOtpService = exports.loginUser = void 0;
+exports.newPasswordService = exports.verifyEmailService = exports.sendMailService = exports.forgotPasswordService = exports.deleteOtpService = exports.loginUser = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const roleModel_1 = __importDefault(require("../models/roleModel"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -22,7 +22,13 @@ const nodemailer_1 = require("../kernels/nodemailer");
 const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield userModel_1.default.findOne({ where: { email } });
     if (user && (yield bcrypt_1.default.compare(password, user.password))) {
+        if (user.status === "inactive") {
+            throw new Error("User is inactive");
+        }
         const role = yield roleModel_1.default.findOne({ where: { id: user.role_id } });
+        if (!role) {
+            throw new Error("Role not found");
+        }
         return {
             id: user.id,
             email: user.email,
@@ -37,14 +43,14 @@ const deleteOtpService = (otp) => __awaiter(void 0, void 0, void 0, function* ()
     return result;
 });
 exports.deleteOtpService = deleteOtpService;
-const forgotPwService = (email) => __awaiter(void 0, void 0, void 0, function* () {
+const forgotPasswordService = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield userModel_1.default.findOne({ where: { email } });
     if (!user) {
         throw new Error("User not found");
     }
     return user;
 });
-exports.forgotPwService = forgotPwService;
+exports.forgotPasswordService = forgotPasswordService;
 const sendMailService = (code) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield userModel_1.default.findOne({ where: { email: code.to } });
     if (user) {
