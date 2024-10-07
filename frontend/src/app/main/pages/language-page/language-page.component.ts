@@ -44,11 +44,7 @@ export class LanguagePageComponent implements OnInit {
   }
  
   loadItems() {
-    // const accessToken = localStorage.getItem('access_token')
-    // if (!accessToken) {
-    //   this.router.navigate(['/auth/login'])
-    // }
-    this.http.getItems("/languages", this.search, this.currentPage, this.limit).subscribe({
+    this.http.getItems("/languages", this.search, this.currentPage, this.limit, '', '').subscribe({
       next: (data: any) => {
         data = data["data"]
         this.items = data["result"].slice()
@@ -56,7 +52,13 @@ export class LanguagePageComponent implements OnInit {
         this.pages = data["pages"]
       },
       error: (error) => {
-        // console.log(error)
+        if (error.error.message === "Forbidden: Insufficient permissions or roles") {
+          this.router.navigate(['/access-denied']);
+        } else if (error.error.message === "User is inactive"){
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('user_id');
+          this.router.navigate(['/auth/login']);
+        }
       }
     })
   }

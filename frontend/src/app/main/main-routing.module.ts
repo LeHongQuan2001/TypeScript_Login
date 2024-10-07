@@ -9,13 +9,17 @@ import { MyProfilePageComponent } from './pages/my-profile-page/components/my-pr
 import { MainComponent } from './main.component';
 import { AddUsersComponent } from './pages/add-users/add-users.component';
 import { authGuard } from '../auth/auth.guard';
+import { RolesComponent } from './pages/roles/roles.component';
+import { PermissionsComponent } from './pages/permissions/permissions.component';
+import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
+import { InactivePageComponent } from './pages/inactive-page/inactive-page.component';
   
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'users/list', pathMatch: 'full' },
       { path: 'home', component: HomePageComponent, canActivate: [authGuard] },
       { path: 'categories/list', component: CategoryPageComponent, canActivate: [authGuard] },
       { path: 'users/list', component: UserPageComponent, canActivate: [authGuard] },
@@ -23,6 +27,10 @@ const routes: Routes = [
       { path: 'users/view-detail/:id', component: ViewDetailComponent, canActivate: [authGuard] },
       { path: 'languages/list', component: LanguagePageComponent, canActivate: [authGuard] },
       { path: 'my-profile', component: MyProfilePageComponent, canActivate: [authGuard] },
+      { path: 'role&permission/role', component: RolesComponent, canActivate: [authGuard] },
+      { path: 'role&permission/permission', component: PermissionsComponent, canActivate: [authGuard] },
+      { path: 'access-denied', component: AccessDeniedComponent},
+      { path: 'inactive-page', component: InactivePageComponent},
     ]
   },
   

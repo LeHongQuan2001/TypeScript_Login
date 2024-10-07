@@ -53,7 +53,7 @@ textarea {
 }
 
 .form-02-main{
-  background:url(../images/bg-01.jpg);
+  background:#232333;
   background-size:cover;
   background-repeat:no-repeat;
   background-position:center;
@@ -66,30 +66,30 @@ textarea {
   
   background-repeat:no-repeat;
   background-size:cover;
-  padding:40px 0px;
+  padding:0px 0px;
   position:relative;
 
 }
 
 .form-03-main{
-  width:500px;
-  display:block;
-  margin:20px auto;
-  padding:25px 50px 25px;
-  background:rgba(255,255,255,0.6);
-  border-radius:6px;
+  width: 480px;
+  display: block;
+  margin: 0px auto;
+  padding: 1px 40px 1px 40px;
+  background: #2b2c40;
+  border-radius: 6px;
   z-index:9;
 }
 
 .logo{
-  display:block;
-  margin:50px auto;
-  width:100px;
-  height:100px;
+  display: block;
+  margin: 0px 100px 100px 100px;
+  width: 200px;
+  height: 100px;
 }
 
 .form-group{
-  padding:20px 0px;
+  padding:17px 0px;
   display:inline-block;
   width:100%;
   position:relative;
@@ -104,8 +104,8 @@ textarea {
   -webkit-box-shadow: none;
   box-shadow: none;
   padding: 10px 15px;
-  border-radius:20px;
-  border:1px solid#2b3990;
+  /* border-radius:20px;
+  border:1px solid#2b3990; */
 }
 
 .checkbox{
@@ -146,7 +146,7 @@ textarea {
   background:#fff;
   border-radius:50px;
   border:1px solid#2b3990;
-  margin:0 0 0 10px;
+  margin:0 0 0 0px;
   transition:0.2s;
 }
 

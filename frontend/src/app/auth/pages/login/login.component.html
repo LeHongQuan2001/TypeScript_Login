@@ -1,68 +1,72 @@
-<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-    <section class="form-02-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="_lk_de">
-                        <div class="form-03-main">
-                            <div class="logo">
-                                <img src="assets/images/user.png">
-                            </div>
-
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Email</mat-label>
-                                <input matInput type="email" formControlName="email" placeholder="Enter Email" aria-required="true" />
-                                <mat-error *ngIf="postForm.get('email')?.hasError('required')">
-                                  Email is required
-                                </mat-error>
-                                <mat-error *ngIf="postForm.get('email')?.hasError('emailDomain')">
-                                  Email must end with @mail.com or @edu.vn
-                                </mat-error>
-                            </mat-form-field>
-
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Password</mat-label>
-                                <input matInput [type]="passwordVisible ? 'text' : 'password'"
-                                       formControlName="password" placeholder="Enter Password" aria-required="true">
-                                <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" tabindex="-1">
-                                  <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
-                                </button>
-                                <mat-error *ngIf="getPasswordError()">
-                                  {{ getPasswordError() }}
-                                </mat-error>
-                            </mat-form-field>
-
-                            <div class="form-group" style="padding-top: 0px;">
-                                <mat-checkbox formControlName="rememberMe" id="rememberMe">Remember me</mat-checkbox>
-                                <mat-label style="float: right;">
-                                    <a href="#" style="line-height: 40px;text-decoration: none;">Forgot Password?</a>
-                                </mat-label>
-                            </div>
-
-                            <div class="form-group">
-                                <button class="_btn_04" mat-raised-button color="primary" type="submit"
-                                    [disabled]="postForm.invalid">Login</button>
-                            </div>
-
-                            <div *ngIf="loginError" class="error-message">
-                                Login failed. Please check your email and password.
-                            </div>
-
-                            <div class="form-group nm_lk">
-                                <p>Or Login With</p>
-                            </div>
-                            <div class="form-group pt-0">
-                                <div class="_social_04">
-                                    <ol style="padding-left: 0rem;">
-                                        <li><i class="fa fa-facebook"></i></li>
-                                        <li><i class="fa fa-google-plus"></i></li>
-                                    </ol>
+<div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner py-4">
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+            <section class="form-02-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="_lk_de">
+                                <div class="form-03-main">
+                                    <div class="logo">
+                                        <img src="../assets/img/logo/logo.png">
+                                    </div>
+        
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label style="color: #ffffff; font-size: 19px; padding: 5px 0px 5px 5px;">Email</mat-label>
+                                        <input matInput class="custom-input" type="email" formControlName="email" placeholder="Enter Email" aria-required="true" />
+                                        <mat-error *ngIf="postForm.get('email')?.hasError('required')">
+                                          Email is required
+                                        </mat-error>
+                                        <mat-error *ngIf="postForm.get('email')?.hasError('emailDomain')">
+                                          Email must end with @mail.com or @edu.vn
+                                        </mat-error>
+                                    </mat-form-field>
+        
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label style="color: #ffffff; font-size: 19px; padding: 5px 0px 5px 5px;">Password</mat-label>
+                                        <input class="custom-input" matInput [type]="passwordVisible ? 'text' : 'password'"
+                                               formControlName="password" placeholder="Enter Password" aria-required="true">
+                                        <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" tabindex="-1">
+                                          <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+                                        </button>
+                                        <mat-error *ngIf="getPasswordError()">
+                                          {{ getPasswordError() }}
+                                        </mat-error>
+                                    </mat-form-field>
+        
+                                    <div class="form-group" style="padding-top: 0px;">
+                                        <mat-checkbox formControlName="rememberMe" id="rememberMe"><span style="color: #d5d5e2;">Remember me</span></mat-checkbox>
+                                        <mat-label style="float: right;">
+                                            <a href="/auth/forgot-password" style="line-height: 40px;text-decoration: none; color: #d5d5e2;">Forgot Password?</a>
+                                        </mat-label>
+                                    </div>
+        
+                                    <div class="form-group">
+                                        <button class="_btn_04" mat-raised-button color="primary" type="submit"
+                                            [disabled]="postForm.invalid">Login</button>
+                                    </div>
+        
+                                    <div *ngIf="loginError" class="error-message">
+                                        Login failed. Please check your email and password.
+                                    </div>
+        
+                                    <div class="form-group nm_lk">
+                                        <p>Or Login With</p>
+                                    </div>
+                                    <div class="form-group pt-0">
+                                        <div class="_social_04">
+                                            <ol style="padding-left: 0rem;">
+                                                <li><i class="fa fa-facebook"></i></li>
+                                                <li style="margin-left: 10px;"><i class="fa fa-google-plus"></i></li>
+                                            </ol>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-</form>
+            </section>
+        </form>
+    </div>
+</div>

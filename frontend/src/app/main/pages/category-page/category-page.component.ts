@@ -38,7 +38,7 @@ export class CategoryPageComponent implements OnInit {
   }
 
   loadItems() {
-    this.http.getItems("/categories", this.search, this.currentPage, this.limit).subscribe({
+    this.http.getItems("/categories", this.search, this.currentPage, this.limit, '', '').subscribe({
       next: (data: any) => {
         this.items = data["data"]["result"].slice()
         this.pages = data["pages"]

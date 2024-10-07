@@ -1,6 +1,7 @@
 import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BaseService } from 'src/app/core/services/base.service';
+import { ApiService } from '../../shared/httpApi/api.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -12,7 +13,7 @@ export class SideBarComponent implements OnInit {
 
   baseService = inject(BaseService)
 
-  constructor(private router: Router) {}
+  constructor(private http: ApiService, private router: Router) {}
 
   logoUrl: string = '../assets/img/logo/logo.png';
 
@@ -21,16 +22,21 @@ export class SideBarComponent implements OnInit {
   openItem: string = '';
   activeSubItem: string = '';         // To manage sub-menu active state
   url: string = '';
+  role: any = {}
+  permissions: any = {}
   listItem: any = {
     home: 'analytics',
     dashboards: 'analytics',
     users: 'users-list',
     categories: 'categories-list',
     languages: 'languages-list',
+    permissions: 'role&permission',
   }
 
   ngOnInit(): void {
-    this.handleSideBar()
+    this.handleSideBar();
+    this.loadPermissions();
+    this.loadData();
     // this.loadActiveUrl()
     this.router.url.split('?')[0].split('/').forEach((e: string, index: number, array: string[]) => {
       if (e !== "" && (index + 1 !== array.length)) {
@@ -75,4 +81,30 @@ export class SideBarComponent implements OnInit {
     })
   }
 
+  loadData() {
+    const id = localStorage.getItem('user_id');
+    this.http.getUser(id).subscribe({
+      next: (data: any) => {
+        this.role = data['data']['role']['name'];
+      },
+      error: (err: any) => {
+      }
+    })
+  }
+
+  loadPermissions() {
+    this.http.getPermissions().subscribe({
+      next: (response: any) => {
+        this.permissions = Array.isArray(response.data?.apiPaths) ? response.data.apiPaths : [];
+      },
+      error: (err) => {
+        console.error('Error loading permissions', err);
+      },
+    });
+  }
+
+  hasPermission(path: string): boolean {
+    return Array.isArray(this.permissions) && this.permissions.includes(path);
+  }
+  
 }

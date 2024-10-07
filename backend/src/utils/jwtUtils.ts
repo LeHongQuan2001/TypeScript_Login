@@ -6,6 +6,7 @@ export const sign = (userId: any, userRole: any): string => {
         { userId, role: userRole },
         config.jwt.secret,
         {
+            algorithm: 'HS512',
             expiresIn: config.jwt.ttl,
         }
     );

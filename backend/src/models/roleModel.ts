@@ -1,41 +1,30 @@
-import { Model, DataTypes } from 'sequelize';
-import sequelize from '../configs/db';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import rolePermission from './rolePermissionModel';
+import User from './userModel';
 
-interface RoleAttributes {
-  id?: number;
-  name: string;
-  permissions: string;
-}
-
-class Role extends Model<RoleAttributes> implements RoleAttributes {
+@Table({
+  tableName: 'roles',
+  timestamps: false,
+})
+class Role extends Model {
+  @Column({
+    type: DataType.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  })
   public id!: number;
-  public name!: string;
-  public permissions!: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-}
 
-Role.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    permissions: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-  },
-  {
-    sequelize,
-    tableName: 'roles',
-    timestamps: true,
-  }
-);
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  public name!: string;
+
+  @HasMany(() => rolePermission)
+  public rolePermission!: rolePermission[];
+
+  @HasMany(() => User)
+  public users!: User[];
+}
 
 export default Role;

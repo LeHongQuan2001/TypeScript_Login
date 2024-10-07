@@ -3,7 +3,7 @@
     <div class="page-list">
       <div class="card">
         <div
-          class="page-header flex justify-content-between align-items-center p-24 border-bottom"
+          class="page-header flex justify-content-between align-items-center p-24 border-bottom" style="border-radius: 0.5rem 0.5rem 0% 0%;"
         >
           <div class="title flex direction-col">
             <h2 class="my-0">{{ "labels.users" | translate }}</h2>
@@ -42,9 +42,10 @@
           </button>
         </div>
         <div class="card-header border-bottom">
-          <div class="row justify-content-between">
-            <div class="col-md-4 col-4 px-0">
-              <div class="search-input ps-re">
+          <div class="row">
+            <div class="col d-flex justify-content-between align-items-center">
+              <!-- Search Input -->
+              <div class="col-md-4 search-input ps-re d-flex">
                 <a
                   class="ps-ab p-8-11 fs-18 fl-r opacity-08 cursor-pointer"
                   (click)="onSubmitSearch(search)"
@@ -62,26 +63,61 @@
                   name="search"
                   ngModel
                   [(ngModel)]="search"
+                  (keyup.enter)="onSubmitSearch(search)"
                 />
               </div>
-            </div>
-            <div class="col-md-1 col-2">
-              <div class="dataTables_length" id="DataTables_Table_0_length">
-                <select
-                  name="DataTables_Table_0_length"
-                  aria-controls="DataTables_Table_0"
-                  class="form-select"
-                  (change)="handleItemsPerPage($event)"
+
+              <!-- Select Boxes -->
+              <div class="d-flex">
+                <div
+                  class="dataTables_length me-2"
+                  id="DataTables_Table_0_role"
                 >
-                  <option value="10" selected>10</option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
+                  <select
+                    name="userRoleFilter"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleRoleFilter($event)"
+                  >
+                    <option value="" selected>All Roles</option>
+                    <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+                  </select>
+                </div>
+                <div
+                  class="dataTables_length me-2"
+                  id="DataTables_Table_0_status"
+                >
+                  <select
+                    name="userStatusFilter"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleStatusFilter($event)"
+                  >
+                    <option value="" selected>All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <!-- <option value="pending">Pending</option> -->
+                  </select>
+                </div>
+
+                <div class="dataTables_length" id="DataTables_Table_0_length">
+                  <select
+                    name="DataTables_Table_0_length"
+                    aria-controls="DataTables_Table_0"
+                    class="form-select"
+                    (change)="handleItemsPerPage($event)"
+                  >
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
         <div class="table-responsive text-nowrap">
           <table
             class="table table-striped border-bottom datatables-users dataTable no-footer dtr-column"
@@ -141,13 +177,7 @@
                 <td>{{ item.username }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.phone }}</td>
-                <td>
-                  {{
-                    item.role.name === "admin"
-                      ? ("common.admin" | translate)
-                      : ("common.user" | translate)
-                  }}
-                </td>
+                <td>{{ item.role.name }}</td>
                 <td>
                   <span
                     class="badge me-1"
@@ -180,12 +210,12 @@
                         class="dropdown-item"
                         (click)="initItem(item)"
                       >
-                        <i class="fa-regular fa-eye"></i>
+                        <i class="fa-regular fa-eye" style="line-height: 21px;"></i>
                         <span class="ms-1">{{
                           "buttons.details" | translate
                         }}</span>
                       </a>
-                      <div class="dropdown-divider"></div>
+                      <!-- <div class="dropdown-divider"></div>
                       <a
                         href="javascript:;"
                         class="dropdown-item text-primary delete-record align-items-center fs-15"
@@ -195,7 +225,7 @@
                         <span class="ms-1">
                           {{ "buttons.edit" | translate }}
                         </span>
-                      </a>
+                      </a> -->
                       <div class="dropdown-divider"></div>
                       <a
                         href="javascript:;"

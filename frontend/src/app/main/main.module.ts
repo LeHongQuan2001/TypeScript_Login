@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
@@ -25,6 +25,10 @@ import { DeleteFailedComponent } from './features/delete/delete-failed/delete-fa
 import { TranslateModule } from '@ngx-translate/core';
 import { AddUsersComponent } from './pages/add-users/add-users.component';
 import { SharedModule } from './shared/shared.module';
+import { RolesComponent } from './pages/roles/roles.component';
+import { PermissionsComponent } from './pages/permissions/permissions.component';
+import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
+import { InactivePageComponent } from './pages/inactive-page/inactive-page.component';
 
 @NgModule({
   declarations: [
@@ -48,11 +52,16 @@ import { SharedModule } from './shared/shared.module';
     DeleteSuccessComponent,
     DeleteFailedComponent,
     AddUsersComponent,
+    RolesComponent,
+    PermissionsComponent,
+    AccessDeniedComponent,
+    InactivePageComponent,
   ],
   imports: [
     MainRoutingModule,
     FormsModule,
     CommonModule,
+    ReactiveFormsModule,
     SharedModule,
     TranslateModule.forChild(),
   ],

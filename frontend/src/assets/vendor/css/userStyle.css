@@ -309,6 +309,7 @@ body {
 
 .page-header {
     background-color: #2b2c40;
+    border-radius: 0.5rem 0.5rem 0% 0%;
 }
 
 /* table-list */
@@ -401,8 +402,8 @@ label {
 }
 
 .fade {
-    opacity: 1 !important;
-    transition: opacity .15s linear;
+    /* opacity: 1 !important; */
+    /* transition: opacity .15s linear; */
 }
 
 .overlay {

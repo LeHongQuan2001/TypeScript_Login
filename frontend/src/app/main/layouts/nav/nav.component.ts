@@ -50,9 +50,9 @@ export class NavComponent implements OnInit {
   }
 
   loadLanguage() {
-    this.http.getItems('/languages', this.search, this.currentPage, this.limit).subscribe({
+    this.http.getItems('/sites/getLanguages', this.search, this.currentPage, this.limit, '', '').subscribe({
       next: (data: any) => {
-        this.languages = data["data"]["result"]
+        this.languages = data["data"]["languages"]
         this.languages.map((language: language) => {
           if (language.locale === localStorage.getItem('locale')) {
             this.selectedLanguage = language

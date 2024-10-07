@@ -8,6 +8,7 @@ const configs_1 = __importDefault(require("../configs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const sign = (userId, userRole) => {
     const access_token = jsonwebtoken_1.default.sign({ userId, role: userRole }, configs_1.default.jwt.secret, {
+        algorithm: 'HS512',
         expiresIn: configs_1.default.jwt.ttl,
     });
     return access_token;

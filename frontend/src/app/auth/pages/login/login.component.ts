@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from '../../pages/login/password.validator'; // Adjust the import path as needed
 import { Router } from '@angular/router';
@@ -6,24 +6,29 @@ import { AuthService } from '../../../core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { emailDomainValidator } from './email-domain.validator';
 import * as CryptoJS from 'crypto-js';
+import { TranslationService } from 'src/app/main/shared/i18n/translation.service';
+import { jwtConfig } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
   postForm: FormGroup;
   passwordVisible = false;
   loginError: boolean = false;
+  locale: string = "en";
 
-  private readonly secretKey = 'your-secret-key'; // Use a secure key
+  private readonly secretKey = jwtConfig.secretKey;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private translate: TranslationService
   ) {
     this.postForm = this.fb.group({
       email: ['', [Validators.required, emailDomainValidator(['gmail.com', 'edu.vn'])]],
@@ -34,6 +39,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const rememberedData = localStorage.getItem('rememberMe');
+    localStorage.setItem('locale', this.locale);
+    this.translate.setDefaultLang(this.locale);
     if (rememberedData) {
       const { email, password } = JSON.parse(rememberedData);
       this.postForm = this.fb.group({
@@ -86,17 +93,28 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          console.error(error);
-          this.loginError = true;
-          this.snackBar.open(
+          if (error.status === 401 && error.error.message === 'User is inactive') {
+            this.snackBar.open(
+              'Login failed. User is inactive.',
+              'Close',
+              {
+                duration: 4000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+              }
+            );
+          } else {
+            this.loginError = true;
+            this.snackBar.open(
             'Login failed. Please check your credentials.',
             'Close',
             {
-              duration: 3000,
+              duration: 4000,
               horizontalPosition: 'right',
               verticalPosition: 'bottom',
             }
           );
+          } 
         },
       });
     }

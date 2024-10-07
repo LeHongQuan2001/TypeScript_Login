@@ -18,6 +18,7 @@ export class ViewDetailComponent implements OnInit {
   item: any = {}
   url: string = ""
   errors: any[] = []
+  roles: any[] = []
 
   // delete
   isDelete: boolean = false;
@@ -32,7 +33,8 @@ export class ViewDetailComponent implements OnInit {
   showImageTmp: string = "";
 
   ngOnInit(): void {
-    this.loadItem()
+    this.loadRoles();
+    this.loadItem();
     this.router.url.split('/').forEach(segment => {
       if (segment === 'users') {
         this.url = '/' + segment
@@ -50,6 +52,14 @@ export class ViewDetailComponent implements OnInit {
         alert(`Error fetching items: ${error.message}`)
       }
     })
+  }
+
+  loadRoles(): void {
+    this.http.getItems("/sites/getRoles", '', 0, 0, '', '').subscribe({
+     next: (response: any) => {
+      this.roles = response.data.roles;
+     },
+    });
   }
 
   toggleDelete(): void {
@@ -85,7 +95,7 @@ export class ViewDetailComponent implements OnInit {
     formData.append('email', form.email);
     formData.append('status', form.status);
     formData.append('address', form.address);
-    formData.append('password', "password");
+    // formData.append('password', "password");
     formData.append('phone', form.phone);
 
     this.http.updateItem("users", formData, this.item.id).subscribe({
@@ -94,9 +104,12 @@ export class ViewDetailComponent implements OnInit {
         this.loadItem()
       },
       error: (error: any) => {
-        this.errors = error["error"]["data"]["errors"];
-        this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 5000}));
-      }
+        this.toastService.show({
+          template: error['error']['message'] || error['error']['data'],
+          classname: 'toast--error',
+          delay: 2000,
+        });
+      },
     })
   }
   

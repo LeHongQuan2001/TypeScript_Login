@@ -1,7 +1,4 @@
-import { JwtPayload } from 'jsonwebtoken';
-
-declare module 'express-serve-static-core' {
-    interface Request {
-        user?: string | JwtPayload;
-    }
+import { Request } from "express"
+export interface IGetUserAuthInfoRequest extends Request {
+  user?: any
 }

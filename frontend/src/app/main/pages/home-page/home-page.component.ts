@@ -17,8 +17,6 @@ export class HomePageComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // this.baseService.setActive('/home')
-    // this.baseService.setSubActiveNav('/list')
     this.loadToast()
   }
 

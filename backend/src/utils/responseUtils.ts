@@ -62,3 +62,11 @@ export const userError = (res: Response, error: string): Response<ErrorResponse>
     message: error,
   });
 };
+
+export const Failed = (res: Response, error: string): Response<ErrorResponse> => {
+  return res.status(409).send({
+    success: false,
+    status: 409,
+    message: error,
+  });
+};
